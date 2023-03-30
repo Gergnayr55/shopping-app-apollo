@@ -1,4 +1,4 @@
-# shopping-app-apollo
+# Shopping-App-Apollo
 
 Cache based Shopping app using GraphQL &amp; Apollo
 

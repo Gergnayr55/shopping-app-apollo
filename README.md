@@ -23,17 +23,17 @@ The client takes advantage of apollo's normalized caching.
 
 This application implements the following:
 
-1. Normalized cache: Apollo Client stores data in a normalized cache, which means that data is stored in a flat and normalized structure, making it easy to retrieve and update data. This also helps to prevent data duplication and improves the performance of the application. (See `merge` function withing `cache.ts`)
+**1. Normalized cache:** Apollo Client stores data in a normalized cache, which means that data is stored in a flat and normalized structure, making it easy to retrieve and update data. This also helps to prevent data duplication and improves the performance of the application. (See `merge` function withing `cache.ts`)
 
-2. Reactive variables: Apollo Client allows you to use reactive variables to store and manage data within the cache. Reactive variables provide a way to manage local state and reactively update the cache when the state changes. This makes it easy to manage complex state in a reactive and performant way. (See `cartItemsVar` references and reactivity between components)
+**2. Reactive variables:** Apollo Client allows you to use reactive variables to store and manage data within the cache. Reactive variables provide a way to manage local state and reactively update the cache when the state changes. This makes it easy to manage complex state in a reactive and performant way. (See `cartItemsVar` references and reactivity between components)
 
-3. Client-only queries: Apollo Client allows you to execute client-only queries, which means that you can query the cache directly without making a network request. This is useful for managing local state and improving the performance of the application. (See `myCartItems @client` query)
+**3. Client-only queries:** Apollo Client allows you to execute client-only queries, which means that you can query the cache directly without making a network request. This is useful for managing local state and improving the performance of the application. (See `myCartItems @client` query)
 
-4. Optimistic UI updates: Apollo Client allows you to perform optimistic UI updates, which means that you can update the cache optimistically before the server responds. This helps to improve the perceived performance of the application and provides a better user experience. (e.g. Update function in a mutation)
+**4. Optimistic UI updates:** Apollo Client allows you to perform optimistic UI updates, which means that you can update the cache optimistically before the server responds. This helps to improve the perceived performance of the application and provides a better user experience. (e.g. Update function in a mutation)
 
-5. Automatic caching of network responses: Apollo Client automatically caches network responses, which means that you can easily retrieve data from the cache without making a network request. This helps to improve the performance of the application and reduces the amount of data that needs to be transferred over the network.
+**5. Automatic caching of network responses:** Apollo Client automatically caches network responses, which means that you can easily retrieve data from the cache without making a network request. This helps to improve the performance of the application and reduces the amount of data that needs to be transferred over the network.
 
-6. Query deduplication: Apollo Client automatically deduplicates queries, which means that multiple identical queries will only be sent once to the server. This helps to reduce the amount of network traffic and improves the performance of the application. (See `getOrder` read function to see more details)
+**6. Query deduplication:** Apollo Client automatically deduplicates queries, which means that multiple identical queries will only be sent once to the server. This helps to reduce the amount of network traffic and improves the performance of the application. (See `getOrder` read function to see more details)
 
 ### `npm test`
 

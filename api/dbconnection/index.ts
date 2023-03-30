@@ -1,6 +1,6 @@
 import { MongoClient, Db, Collection } from "mongodb";
 import config from "../config/config";
-import { SavedCart, Order, Skin, NewUser } from "../utils/types";
+import { SavedCart, Order, Skin, NewUser, InsertOrder } from "../utils/types";
 const MONGO_URI = config.MONGO_URI;
 
 const client: MongoClient = new MongoClient(MONGO_URI);
@@ -54,5 +54,5 @@ const db: Db = client.db("test");
 
 export const userRepo: Collection<NewUser> = db.collection("myUsers");
 export const skinRepo: Collection<Skin> = db.collection("skins");
-export const orderRepo: Collection<Order> = db.collection("orders");
+export const orderRepo: Collection<InsertOrder> = db.collection("orders");
 export const cartRepo: Collection<SavedCart> = db.collection("userCart");

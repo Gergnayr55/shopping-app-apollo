@@ -16,6 +16,7 @@ import {
 import { validateTokensMiddleware } from "./middleware";
 import { userRepo, skinRepo, orderRepo, cartRepo } from "./dbconnection";
 import config from "./config/config";
+import { InsertOneResult, ObjectId } from "mongodb";
 
 const {
   setTokens,
@@ -24,7 +25,6 @@ const {
   hashPassword,
   isMyObjectEmpty,
 } = require("./utils");
-const { ObjectId } = require("mongodb");
 
 const resolvers = {
   Query: {
@@ -197,7 +197,7 @@ const resolvers = {
         lastName: string;
       },
       { res }: { res: Response }
-    ): Promise<InsertDocumentRes | undefined> => {
+    ): Promise<InsertOneResult<NewUser> | undefined> => {
       try {
         const userExists = await userRepo.findOne({
           email: email,
@@ -213,6 +213,8 @@ const resolvers = {
             createdAt: new Date(),
             updatedAt: new Date(),
           });
+        } else {
+          return undefined;
         }
       } catch (e) {
         console.error("Failed on registration", e);
@@ -226,7 +228,7 @@ const resolvers = {
         total,
       }: { cartItems: CartItemInput[]; userId: string; total: number },
       { res }: { res: Response }
-    ): Promise<{ id: string } | undefined> => {
+    ): Promise<{ id: string | null } | undefined> => {
       try {
         const myOrder = await orderRepo.insertOne({
           items: cartItems,
@@ -236,8 +238,11 @@ const resolvers = {
           updatedAt: new Date(),
           status: "PENDING",
         });
-        if (myOrder.acknowledged) {
-          return { id: myOrder.insertedId.toString() };
+        if (myOrder && myOrder.acknowledged) {
+          const returnId = myOrder.insertedId
+            ? myOrder.insertedId.toString()
+            : null;
+          return { id: returnId };
         }
       } catch (e) {
         console.error("Failed on submit order", e);
@@ -247,7 +252,7 @@ const resolvers = {
       _: any,
       { cartItems, userId }: { cartItems: Array<CartItem>; userId: string },
       { res }: { res: Response }
-    ): Promise<{ id: string } | undefined> => {
+    ): Promise<{ id: ObjectId | null } | undefined> => {
       try {
         const existingCart = await cartRepo.findOne({
           userId: userId,
@@ -276,7 +281,9 @@ const resolvers = {
           const returnId = myShoppingCartRes?.upsertedId
             ? myShoppingCartRes?.upsertedId
             : myShoppingCartRes.insertedId;
-          return { id: returnId };
+          if (returnId) return { id: returnId };
+        } else {
+          return { id: null };
         }
       } catch (e) {
         console.error("Failed on add item to cart", e);

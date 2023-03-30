@@ -1,0 +1,70 @@
+.centered-form-reg {
+  background-color: gainsboro;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.centered-form-box-reg {
+  box-shadow: 0px 0px 17px 1px #1d1f26;
+  background: #fff;
+  padding: 24px;
+  width: 350px;
+  margin: 5% auto;
+  height: 100;
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  max-height: 450px;
+  justify-content: space-around;
+}
+
+.register-btn {
+  margin-top: 35px;
+  width: 100%;
+}
+.show-create-password {
+  font-size: 14px;
+  color: black !important;
+  position: absolute;
+  padding: 13px 16px;
+  bottom: 46%;
+  right: 39%;
+  z-index: 999;
+  text-decoration: underline;
+  background-color: transparent !important;
+}
+
+.show-verify-password {
+  font-size: 14px;
+  color: black !important;
+  position: absolute;
+  padding: 13px 16px;
+  bottom: 39.5%;
+  right: 39%;
+  z-index: 999;
+  text-decoration: underline;
+  background-color: transparent !important;
+}
+.label-text {
+  position: absolute;
+  border-radius: 10px;
+  left: 36%;
+  top: auto;
+  margin-top: 4px;
+  transform: translateY(-8px);
+  background-color: #fff;
+  transition: all 0.25s ease-in-out;
+  opacity: 0;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+  padding: 0 5px;
+  font-size: 14px;
+}
+.label-text.focused {
+  opacity: 1;
+}

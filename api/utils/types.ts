@@ -1,7 +1,7 @@
-const { ObjectId } = require("mongodb");
+import { ObjectId } from "mongodb";
 
 export interface User {
-  _id: typeof ObjectId;
+  _id: ObjectId;
   email: string;
   password: string;
   firstName: string;
@@ -9,15 +9,14 @@ export interface User {
 }
 
 export interface Skin {
-  _id: typeof ObjectId;
+  _id: ObjectId;
   name: string;
   description: string;
   price: number;
   imageUrl: string;
 }
 
-export interface Order {
-  _id: typeof ObjectId;
+export interface InsertOrder {
   userId: string;
   total: number;
   createdAt?: Date;
@@ -25,9 +24,10 @@ export interface Order {
   status: string;
   items: Array<CartItemInput>;
 }
-
+export interface Order extends InsertOrder {
+  _id: ObjectId;
+}
 export interface SavedCart {
-  _id: typeof ObjectId;
   userId: string;
   items: Array<CartItem>;
   createdAt?: Date;
@@ -35,14 +35,14 @@ export interface SavedCart {
 }
 
 export interface CartItem {
-  _id: typeof ObjectId;
+  _id: ObjectId;
   userId: string;
   skinId: string;
   quantity: number;
 }
 
 export interface CartItemInput {
-  _id: typeof ObjectId;
+  _id: ObjectId;
   name: string;
   category: string;
   description: string;
@@ -54,12 +54,11 @@ export interface CartItemInput {
 
 export interface InsertDocumentRes {
   acknowledged: boolean;
-  upsertedId?: typeof ObjectId;
-  insertedId?: typeof ObjectId;
+  upsertedId?: ObjectId;
+  insertedId?: ObjectId;
 }
 
 export interface UserRes {
-  _id: typeof ObjectId;
   email: string;
   password: string;
   firstName: string;

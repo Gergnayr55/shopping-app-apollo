@@ -4,6 +4,8 @@ Cache based Shopping app using GraphQL &amp; Apollo
 
 # Getting Started
 
+Ensure your in the root of shopping-app-apollo repository.
+Then run `npm i` to install node_modules.
 To start client run `npm start`
 To start api run `npm run api`
 

@@ -1,38 +1,41 @@
 import { Request, Response, NextFunction } from "express";
-const { validateAccessToken, validateRefreshToken } = require("../utils");
-const { setTokens, tokenCookies } = require("../utils");
-const { userRepo } = require("../dbconnection");
+import { validateAccessToken, validateRefreshToken } from "../utils"
+import { setTokens, tokenCookies } from "../utils"
+import { userRepo } from "../dbconnection";
+import { JwtPayload } from "jsonwebtoken";
+interface MyToken extends JwtPayload {
+  user?: any;
+}
 
 export async function validateTokensMiddleware(
-  req: Request,
-  res: Response,
-  next: NextFunction
+  req: any,
+  res: any,
+  next: any
 ): Promise<void> {
   const refreshToken = req.cookies["refresh"];
   const accessToken = req.cookies["access"];
 
   if (!accessToken && !refreshToken) return next();
-  const decodedAccessToken = validateAccessToken(accessToken);
+  const decodedAccessToken: MyToken | string | null = validateAccessToken(accessToken);
 
-  if (decodedAccessToken && decodedAccessToken.user) {
+  if (decodedAccessToken && typeof decodedAccessToken !== 'string' && decodedAccessToken.user) {
     req.user = decodedAccessToken.user;
     return next();
   }
 
-  const decodedRefreshToken = validateRefreshToken(refreshToken);
+  const decodedRefreshToken: MyToken | string | null = validateRefreshToken(refreshToken);
 
-  if (decodedRefreshToken && decodedRefreshToken.user) {
+  if (decodedRefreshToken &&  typeof decodedRefreshToken !== 'string' && decodedRefreshToken.user) {
     const user = await userRepo.findOne({
       _id: decodedRefreshToken.user.id,
     });
 
     if (!user || user._id !== decodedRefreshToken.user.id) {
-      //!user || user.data.tokenCount !== decodedRefreshToken.user.count
       res.clearCookie("access");
       res.clearCookie("refresh");
       return next();
     }
-    const userTokens = setTokens(user.data);
+    const userTokens = setTokens(user);
 
     req.user = decodedRefreshToken.user;
     // update the cookies with new tokens

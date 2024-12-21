@@ -1,5 +1,6 @@
+import { ApolloServer } from '@apollo/server';
 import { typeDefs } from "./schema";
-import { ApolloServer, AuthenticationError } from "apollo-server-express";
+import { expressMiddleware } from '@apollo/server/express4';
 import express, { Request, Response } from "express";
 import cookieParser from "cookie-parser";
 import cors, { CorsOptions } from "cors";
@@ -18,25 +19,24 @@ import { userRepo, skinRepo, orderRepo, cartRepo } from "./dbconnection";
 import config from "./config/config";
 import { InsertOneResult, ObjectId } from "mongodb";
 
-const {
+import {
   setTokens,
   tokenCookies,
   validateUserPw,
   hashPassword,
   isMyObjectEmpty,
-} = require("./utils");
+} from "./utils";
 
 const resolvers = {
   Query: {
     loggedInUser: async (
       _: any,
       __: any,
-      { req }: { req: Request }
+      { req }: { req: any }
     ): Promise<NewUser | undefined> => {
       try {
         const user = await userRepo.findOne({ id: req.user._id });
         if (isMyObjectEmpty(req.user)) {
-          throw new AuthenticationError("Must authenticate");
         } else if (user) {
           return user;
         }
@@ -47,13 +47,12 @@ const resolvers = {
     getSkin: async (
       _: any,
       args: { _id: string },
-      { req, res }: { req: Request; res: Response }
+      { req, res }: { req: any; res: any }
     ): Promise<Skin | undefined | null> => {
       try {
         if (isMyObjectEmpty(req.user)) {
           res.clearCookie("access");
           res.clearCookie("refresh");
-          throw new AuthenticationError("Must authenticate");
         } else {
           const skinId = new ObjectId(args._id);
 
@@ -70,13 +69,12 @@ const resolvers = {
     getOrder: async (
       _: any,
       args: { _id: string },
-      { req, res }: { req: Request; res: Response }
+      { req, res }: { req: any; res: any }
     ): Promise<Order | null | undefined> => {
       try {
         if (isMyObjectEmpty(req.user)) {
           res.clearCookie("access");
           res.clearCookie("refresh");
-          throw new AuthenticationError("Must authenticate");
         } else if (args._id) {
           const myId = new ObjectId(args._id);
 
@@ -89,13 +87,12 @@ const resolvers = {
     getSkins: async (
       _: any,
       __: any,
-      { req, res }: { req: Request; res: Response }
+      { req, res }: { req: any; res: any }
     ): Promise<Skin[] | undefined> => {
       try {
         if (isMyObjectEmpty(req.user)) {
           res.clearCookie("access");
           res.clearCookie("refresh");
-          throw new AuthenticationError("Must authenticate");
         } else {
           return await skinRepo.find().toArray();
         }
@@ -106,13 +103,12 @@ const resolvers = {
     getOrders: async (
       _: any,
       __: any,
-      { req, res }: { req: Request; res: Response }
+      { req, res }: { req: any; res: any }
     ): Promise<Order[] | undefined> => {
       try {
         if (isMyObjectEmpty(req.user)) {
           res.clearCookie("access");
           res.clearCookie("refresh");
-          throw new AuthenticationError("Must authenticate");
         } else if (req.user) {
           const myId = req.user.id.toString();
           return await orderRepo.find({ userId: myId }).toArray();
@@ -123,13 +119,12 @@ const resolvers = {
     },
     getUserCart: async (
       _: any,
-      { req, res }: { req: Request; res: Response }
-    ): Promise<SavedCart[] | undefined> => {
+      { req, res }: { req: any; res: any }
+    ): Promise<any[] | undefined> => {
       try {
         if (isMyObjectEmpty(req.user)) {
           res.clearCookie("access");
           res.clearCookie("refresh");
-          throw new AuthenticationError("Must authenticate");
         } else if (req.user) {
           const userId = req.user.id.toString();
           return await cartRepo.find({ userId: userId }).toArray();
@@ -173,7 +168,7 @@ const resolvers = {
     logout: async (
       _: any,
       __: any,
-      { res }: { res: Response }
+      { res }: { res: any }
     ): Promise<boolean | undefined> => {
       try {
         res.clearCookie("access");
@@ -207,7 +202,7 @@ const resolvers = {
         if (!userExists) {
           return await userRepo.insertOne({
             email,
-            password: hashedPw,
+            password: !!hashedPw ? hashedPw : '',
             firstName,
             lastName,
             createdAt: new Date(),
@@ -257,7 +252,7 @@ const resolvers = {
         const existingCart = await cartRepo.findOne({
           userId: userId,
         });
-        let myShoppingCartRes: InsertDocumentRes | undefined = undefined;
+        let myShoppingCartRes: any | undefined = undefined;
         if (existingCart) {
           myShoppingCartRes = await cartRepo.updateOne(
             { userId: existingCart.userId },
@@ -298,25 +293,56 @@ const corsConfig: CorsOptions = {
 
 async function startApolloServer() {
   try {
-    const server = new ApolloServer({
+    // const server = new ApolloServer({
+    //   typeDefs,
+    //   resolvers,
+    //   context: ({ req, res }: { req: Request; res: Response }) => ({
+    //     req,
+    //     res,
+    //   }),
+    // });
+    // interface MyContext {
+    //   token?: string;
+    // }
+    
+    // Apollo 4
+    const server = new ApolloServer<any>({
       typeDefs,
-      resolvers,
-      context: ({ req, res }: { req: Request; res: Response }) => ({
-        req,
-        res,
-      }),
+      resolvers
     });
+
     await server.start();
     const app = express();
-    app.use(cors(corsConfig));
-    app.use(cookieParser());
-    app.use(validateTokensMiddleware);
-    server.applyMiddleware({ app, cors: false });
+     // Apollo 4
+    app.use('/graphql',
+
+      cors<cors.CorsRequest>(corsConfig),
+    
+      express.json(),
+    
+      expressMiddleware(server, {
+    
+        // context: async ({ req }) => ({ token: req.headers.token }),
+        context: async ({ req, res }: { req: Request; res: Response }) => ({
+          req,
+          res,
+        }),
+    
+      }),
+    
+    );
+
+    // Remove for apollo 4
+    // app.use(cors(corsConfig));
+    // app.use(cookieParser());
+    // app.use(validateTokensMiddleware);
+    // server.applyMiddleware({ app, cors: false });
+    //keeps
     try {
       await new Promise<void>((resolve) =>
         app.listen({ port: config.API_PORT }, resolve)
       );
-      console.log(`🚀 Server ready at ${config.API_URL}${server.graphqlPath}`);
+      console.log(`🚀 Server ready at http://localhost:4000/graphql`);
     } catch (e) {
       console.log("Failed to listen on port", e);
     }

@@ -1,8 +1,8 @@
 {
   "name": "ecommerce-app",
   "version": "0.1.0",
-  "private": true,
   "type": "module",
+  "private": true,
   "dependencies": {
     "@apollo/client": "^3.12.3",
     "@apollo/server": "^4.11.2",
@@ -45,11 +45,11 @@
     "web-vitals": "^1.1.2"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "api": "nodemon api/index.ts",
+    "start": "craco start",
+    "api": "nodemon --exec node --no-warnings=ExperimentalWarning --loader ts-node/esm api/index.ts",
     "flow": "flow",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
+    "build": "craco build",
+    "test": "craco test",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -74,6 +74,7 @@
     "@babel/cli": "^7.16.0",
     "@babel/core": "^7.16.0",
     "@babel/preset-flow": "^7.16.0",
+    "@craco/craco": "^7.1.0",
     "@types/bcrypt": "^5.0.2",
     "@types/cookie-parser": "^1.4.3",
     "@types/jsonwebtoken": "^9.0.1",

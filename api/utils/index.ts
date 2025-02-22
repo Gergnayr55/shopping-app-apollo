@@ -1,4 +1,5 @@
-import jwt, { sign, verify } from "jsonwebtoken";
+import jwt from "jsonwebtoken";
+
 import config from "../config/config";
 import bcrypt from "bcrypt";
 
@@ -6,6 +7,7 @@ const SECRET_KEY = config.ACCESS_SECRET;
 const REFRESH_KEY = config.REFRESH_SECRET;
 const SALT_ROUNDS = 10;
 
+const { sign, verify } = jwt;
 interface AccessUser {
   id: string;
 }

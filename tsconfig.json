@@ -1,8 +1,9 @@
 {
   "ts-node": {
+    "esm": true,
+    "experimentalSpecifierResolution": "node",
     "compilerOptions": {
-    "module": "ESNext",
-    "typeRoots" : ["api/types", "node_modules/@types"]
+      "typeRoots" : ["api/types", "node_modules/@types"]
     }
   },
   "compilerOptions": {
@@ -16,7 +17,7 @@
     "forceConsistentCasingInFileNames": true,
     "noFallthroughCasesInSwitch": true,
     "module": "ESNext",
-    "moduleResolution": "bundler",
+    "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,

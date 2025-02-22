@@ -8,9 +8,9 @@ interface MyToken extends JwtPayload {
 }
 
 export async function validateTokensMiddleware(
-  req: any,
-  res: any,
-  next: any
+  req: Request,
+  res: Response,
+  next: NextFunction
 ): Promise<void> {
   const refreshToken = req.cookies["refresh"];
   const accessToken = req.cookies["access"];

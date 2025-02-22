@@ -54,13 +54,12 @@ export async function seedDatabase(db_name: string, data: Array<Skin | User | Or
     console.log("failed to connect to Mongo", e);
   }
 }
-
-connectToDatabase('test')
-  .then(console.error)
-  .catch(console.error)
-  .finally(() => {
-    console.log("MongoDB client connected");
-  });
+  connectToDatabase('test')
+    .then(console.error)
+    .catch(console.error)
+    .finally(() => {
+      console.log("MongoDB client connected");
+    });
 
 export const collections:
   | {

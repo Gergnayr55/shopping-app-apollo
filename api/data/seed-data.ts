@@ -1,7 +1,7 @@
 import { seedDatabase} from '../dbconnection/index';
-import data from './product-data-local';
+import { seedData } from './product-data-local';
 
-seedDatabase('YourDatabaseNameHere', data)
+seedDatabase('YourDatabaseNameHere', seedData)
     .then(console.error)
     .catch(console.error)
     .finally(() => {

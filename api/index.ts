@@ -1,5 +1,6 @@
 import { ApolloServer } from '@apollo/server';
 import { typeDefs } from "./schema";
+import { seedData } from './data/product-data-local';
 import { expressMiddleware } from '@apollo/server/express4';
 import express, { Request, Response } from "express";
 import cookieParser from "cookie-parser";
@@ -32,7 +33,7 @@ const resolvers = {
     loggedInUser: async (
       _: any,
       __: any,
-      { req }: { req: any }
+      { req }: { req: Request }
     ): Promise<NewUser | undefined> => {
       try {
         const user = await userRepo.findOne({ id: req.user._id });
@@ -47,7 +48,7 @@ const resolvers = {
     getSkin: async (
       _: any,
       args: { _id: string },
-      { req, res }: { req: any; res: any }
+      { req, res }: { req: Request; res: Response }
     ): Promise<Skin | undefined | null> => {
       try {
         if (isMyObjectEmpty(req.user)) {
@@ -69,7 +70,7 @@ const resolvers = {
     getOrder: async (
       _: any,
       args: { _id: string },
-      { req, res }: { req: any; res: any }
+      { req, res }: { req: Request; res: Response }
     ): Promise<Order | null | undefined> => {
       try {
         if (isMyObjectEmpty(req.user)) {
@@ -87,7 +88,7 @@ const resolvers = {
     getSkins: async (
       _: any,
       __: any,
-      { req, res }: { req: any; res: any }
+      { req, res }: { req: Request; res: Response }
     ): Promise<Skin[] | undefined> => {
       try {
         if (isMyObjectEmpty(req.user)) {
@@ -103,7 +104,7 @@ const resolvers = {
     getOrders: async (
       _: any,
       __: any,
-      { req, res }: { req: any; res: any }
+      { req, res }: { req: Request; res: Response }
     ): Promise<Order[] | undefined> => {
       try {
         if (isMyObjectEmpty(req.user)) {
@@ -119,7 +120,7 @@ const resolvers = {
     },
     getUserCart: async (
       _: any,
-      { req, res }: { req: any; res: any }
+      { req, res }: { req: Request; res: Response }
     ): Promise<any[] | undefined> => {
       try {
         if (isMyObjectEmpty(req.user)) {
@@ -293,14 +294,6 @@ const corsConfig: CorsOptions = {
 
 async function startApolloServer() {
   try {
-    // const server = new ApolloServer({
-    //   typeDefs,
-    //   resolvers,
-    //   context: ({ req, res }: { req: Request; res: Response }) => ({
-    //     req,
-    //     res,
-    //   }),
-    // });
     // interface MyContext {
     //   token?: string;
     // }
@@ -332,12 +325,6 @@ async function startApolloServer() {
     
     );
 
-    // Remove for apollo 4
-    // app.use(cors(corsConfig));
-    // app.use(cookieParser());
-    // app.use(validateTokensMiddleware);
-    // server.applyMiddleware({ app, cors: false });
-    //keeps
     try {
       await new Promise<void>((resolve) =>
         app.listen({ port: config.API_PORT }, resolve)

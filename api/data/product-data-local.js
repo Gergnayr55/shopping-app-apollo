@@ -7,7 +7,7 @@ export const seedData = [
       "price": 9403.949417178594,
       "description": "Lorem ipsum odor amet, consectetuer adipiscing elit",
       "category": "amet",
-      "imageUrl": "https://picsum.photos/id/2/200/300",
+      "image": "https://picsum.photos/id/2/200/300",
       "count": 6566,
       "rate": 4.045959481038153
     },

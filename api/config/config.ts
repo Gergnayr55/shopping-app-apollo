@@ -14,6 +14,8 @@ interface ENV {
   MONGO_URI: string | undefined;
   ACCESS_SECRET: string | undefined;
   REFRESH_SECRET: string | undefined;
+  TEST_USER_EMAIL: string | undefined;
+  TEST_USER_PASSWORD: string | undefined;
 }
 
 interface Config {
@@ -24,6 +26,8 @@ interface Config {
   MONGO_URI: string;
   ACCESS_SECRET: string;
   REFRESH_SECRET: string;
+  TEST_USER_EMAIL: string;
+  TEST_USER_PASSWORD: string;
 }
 
 // Loading process.env as ENV interface
@@ -37,6 +41,8 @@ const getConfig = (): ENV => {
     MONGO_URI: process.env.MONGO_URI,
     ACCESS_SECRET: process.env.ACCESS_SECRET,
     REFRESH_SECRET: process.env.REFRESH_SECRET,
+    TEST_USER_EMAIL: process.env.TEST_USER_EMAIL,
+    TEST_USER_PASSWORD: process.env.TEST_USER_PASSWORD,
   };
 };
 

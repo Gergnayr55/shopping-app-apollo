@@ -18,9 +18,6 @@ export async function connectToDatabase(db_name: string ) {
     collections.cartRepo = db.collection("userCart");
 
     console.log(`Successfully connected to database: ${db.databaseName}`);
-    collections.userRepo.findOne({
-      email: "gergnayr@aol.com",
-    }).then((res) => console.log(`User:`, res));
   } catch (e) {
     console.log("failed to connect to Mongo", e);
   }
@@ -41,21 +38,20 @@ export async function seedDatabase(db_name: string, data: Array<Skin | User | Or
     if (!!data && data.length > 0) {
       for (let i = 0; i < data.length; i++) {
         try {
-          await skinRepo.insertOne(data[i] as Skin);
+          await newDB.collection("skins").insertOne(data[i] as Skin);
         } catch (e) {
           console.log("failed to insert item into collection", e);
         }
       }
     }
 
-    console.log(`Successfully connected to database: ${db.databaseName}`);
+    console.log(`Successfully seeded database: ${newDB.databaseName}`);
 
   } catch (e) {
     console.log("failed to connect to Mongo", e);
   }
 }
   connectToDatabase('test')
-    .then(console.error)
     .catch(console.error)
     .finally(() => {
       console.log("MongoDB client connected");

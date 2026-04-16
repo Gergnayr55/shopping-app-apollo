@@ -16,7 +16,7 @@ import {
   CartItemInput,
 } from "./utils/types";
 import { validateTokensMiddleware } from "./middleware";
-import { userRepo, skinRepo, orderRepo, cartRepo } from "./dbconnection";
+import { userRepo, skinRepo, orderRepo, cartRepo, seedDatabase } from "./dbconnection";
 import config from "./config/config";
 import { InsertOneResult, ObjectId } from "mongodb";
 
@@ -305,7 +305,28 @@ async function startApolloServer() {
     });
 
     await server.start();
+
+    const existingProducts = await skinRepo.countDocuments();
+    if (existingProducts === 0) {
+      await seedDatabase('test', seedData);
+    }
+
+    const existingUsers = await userRepo.countDocuments();
+    if (existingUsers === 0) {
+      const hashedPw = await hashPassword(config.TEST_USER_PASSWORD);
+      await userRepo.insertOne({
+        email: config.TEST_USER_EMAIL,
+        password: hashedPw ?? '',
+        firstName: 'Test',
+        lastName: 'User',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      });
+    }
+
     const app = express();
+    app.use(cookieParser());
+    app.use(validateTokensMiddleware);
      // Apollo 4
     app.use('/graphql',
 

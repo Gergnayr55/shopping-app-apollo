@@ -13,7 +13,7 @@ export interface Skin {
   name: string;
   description: string;
   price: number;
-  imageUrl: string;
+  image: string;
 }
 
 export interface InsertOrder {

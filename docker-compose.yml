@@ -1,0 +1,40 @@
+services:
+  mongodb:
+    image: mongo:6
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+
+  api:
+    build: .
+    ports:
+      - "4000:4000"
+    depends_on:
+      - mongodb
+    restart: unless-stopped
+    env_file:
+      - dev.env
+    environment:
+      MONGO_URI: mongodb://mongodb:27017
+    volumes:
+      - .:/app
+      - /app/node_modules
+
+  client:
+    build: .
+    ports:
+      - "3000:3000"
+    depends_on:
+      - api
+    env_file:
+      - dev.env
+    environment:
+      HOST: "0.0.0.0"
+    command: npm start
+    volumes:
+      - .:/app
+      - /app/node_modules
+
+volumes:
+  mongo-data:

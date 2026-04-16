@@ -4,12 +4,32 @@ Cache based Shopping app using GraphQL &amp; Apollo
 
 # Getting Started
 
-Ensure your in the root of shopping-app-apollo repository.
-Then run `npm i` to install node_modules.
-To start client run `npm start`
-To start api run `npm run api`
+## Prerequisites
+- [Docker](https://www.docker.com/get-started) installed and running
 
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Running Locally
+
+1. Clone the repository
+2. Ensure Docker is running
+3. From the root of the repository run:
+
+```bash
+docker compose up --build
+```
+
+This will:
+- Start a MongoDB instance
+- Seed the database with 15 products and a test user on first run
+- Start the API on port 4000
+- Start the client on port 3000
+
+> The database is only seeded on first run. To reseed, run `docker compose down -v` then `docker compose up --build` again.
+
+## Quick Start
+
+1. Run `docker compose up --build`
+2. Open [http://localhost:3000](http://localhost:3000)
+3. Login with `test@test.com` / `password123`
 
 The page will reload if you make edits.\
 You will also see any lint errors in the console.

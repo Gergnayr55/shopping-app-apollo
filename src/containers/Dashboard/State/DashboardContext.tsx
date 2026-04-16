@@ -23,7 +23,7 @@ const DashboardContext = createContext<IDashboardContext>({
 });
 const { Provider, Consumer } = DashboardContext;
 
-const DashboardProvider: FC = ({ children }) => {
+const DashboardProvider: FC<{ children: React.ReactNode }> = ({ children }) => {
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
   const [drawerOpen, setDrawerOpen] = useState<boolean>(false);
   const value: IDashboardContext = {

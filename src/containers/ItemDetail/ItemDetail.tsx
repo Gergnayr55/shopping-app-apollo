@@ -3,7 +3,7 @@ import { DashboardContext } from "../Dashboard/State/DashboardContext";
 import "./ItemDetail.css";
 import Toolbar from "../../components/Toolbar";
 import { Box, Typography, Grid, Divider, Stack } from "@mui/material";
-import { useHistory, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { cartTotalItems, handleType, moneyFormatter } from "../../utils";
 import MyDrawer, { CartItem } from "../../components/MyDrawer/MyDrawer";
 import BackButton from "../../components/BackButton";
@@ -34,7 +34,7 @@ export interface UserCartItem extends CartItem {
   __typename: string;
 }
 function ItemDetail(): ReactElement {
-  const history = useHistory();
+  const navigate = useNavigate();
   const theme = useTheme();
   const largeDevice = useMediaQuery(theme.breakpoints.up("sm"));
   const { drawerOpen, setDrawerOpen } = useContext(DashboardContext);
@@ -203,7 +203,7 @@ function ItemDetail(): ReactElement {
         viewCartDrawer={() => setDrawerOpen(!drawerOpen)}
       />
       <MyDrawer
-        handleCheckout={() => history.push("/checkout")}
+        handleCheckout={() => navigate("/checkout")}
         visible={drawerOpen}
         onClose={() => setDrawerOpen(false)}
       />
@@ -231,7 +231,7 @@ function ItemDetail(): ReactElement {
             }}
           >
             <Box sx={{ alignSelf: "flex-start" }}>
-              <BackButton onClick={() => history.goBack()} />
+              <BackButton onClick={() => navigate(-1)} />
             </Box>
 
             {!largeDevice && myData.getSkin && (

@@ -3,7 +3,7 @@ import Grid from "@mui/material/Grid";
 import Skeleton from "@mui/material/Skeleton";
 import { Box, Divider, Typography } from "@mui/material";
 import { handleDateFormat, moneyFormatter } from "../../utils";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Stack } from "@mui/system";
 import { useQuery } from "@apollo/client";
 import { CartItem } from "../../components/MyDrawer/MyDrawer";
@@ -17,7 +17,7 @@ export interface OrderItem extends CartItem {
   items: Array<CartItem>;
 }
 export default function Orders(): ReactElement {
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const { data, error, loading } = useQuery(GET_ORDERS);
 
@@ -66,7 +66,7 @@ export default function Orders(): ReactElement {
             <BackButton
               title="Go Back"
               color="#fff"
-              onClick={() => history.goBack()}
+              onClick={() => navigate(-1)}
             />
             <Typography
               sx={{
@@ -145,7 +145,7 @@ export default function Orders(): ReactElement {
                   }}
                   onClick={() => {
                     // setOrderItemDetails(itm);
-                    history.push(`/orders/${itm._id}`);
+                    navigate(`/orders/${itm._id}`);
                   }}
                 >
                   <Typography
@@ -169,7 +169,7 @@ export default function Orders(): ReactElement {
                       fontSize: { xs: "12px", md: "inherit" },
                     }}
                   >
-                    {itm._id}
+                    {itm._id.toString()}
                   </Typography>
                   <Typography
                     gutterBottom

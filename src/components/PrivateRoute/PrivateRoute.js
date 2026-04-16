@@ -1,17 +1,8 @@
 import React from "react";
-import { Route, Redirect } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 
-const PrivateRoute = ({ component: Component, authed, ...rest }) => (
-  <Route
-    {...rest}
-    render={(props) =>
-      authed === true ? (
-        <Component {...props} />
-      ) : (
-        <Redirect to={{ pathname: "/", state: { from: props.location } }} />
-      )
-    }
-  />
-);
+const PrivateRoute = ({ authed, children }) => {
+  return authed ? children : <Navigate to="/" replace />;
+};
 
 export default PrivateRoute;

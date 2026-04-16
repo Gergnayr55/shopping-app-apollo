@@ -15,7 +15,7 @@ import Popper from "@mui/material/Popper";
 import MenuItem from "@mui/material/MenuItem";
 import MenuList from "@mui/material/MenuList";
 import Stack from "@mui/material/Stack";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Typography } from "@mui/material";
 import { getUser } from "../../utils";
 import { ObjectId } from "mongodb";
@@ -39,12 +39,12 @@ type ListProps = {
   arr: Array<MenuItm>;
   onLogout: (e: MouseEvent) => Promise<void>;
 };
-export default function List({ arr, onLogout }: ListProps): ReactElement {
+export default function List({ arr, onLogout }: ListProps): ReactElement | null {
   const theme = useTheme();
   const largeDevice = useMediaQuery(theme.breakpoints.up("sm"));
   const [open, setOpen] = useState(false);
   const anchorRef = useRef<HTMLButtonElement>(null);
-  const history = useHistory();
+  const navigate = useNavigate();
   const handleToggle = () => {
     setOpen((prevOpen) => !prevOpen);
   };
@@ -79,7 +79,8 @@ export default function List({ arr, onLogout }: ListProps): ReactElement {
     prevOpen.current = open;
   }, [open]);
 
-  const curUser: UserType = getUser();
+  const curUser = getUser();
+  if (!curUser) return null;
   return (
     <Stack direction="row" spacing={2}>
       <div>
@@ -151,7 +152,7 @@ export default function List({ arr, onLogout }: ListProps): ReactElement {
                           if (idx === arr.length - 1) {
                             onLogout(e);
                           } else {
-                            history.push(`/${itm.pathname.toLowerCase()}`);
+                            navigate(`/${itm.pathname.toLowerCase()}`);
                           }
 
                           handleClose(e);

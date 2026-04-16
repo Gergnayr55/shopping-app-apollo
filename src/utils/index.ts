@@ -1,37 +1,52 @@
 import { CartItem } from "../components/MyDrawer/MyDrawer";
+
+export type LoginUser = {
+  _id: string;
+  email: string;
+  password: string;
+  firstName: string;
+  lastName: string;
+};
+
 const USER_KEY = "loggedInUser";
-export function saveUser(tokens): void {
-  localStorage.setItem(USER_KEY, JSON.stringify(tokens));
+
+export function saveUser(user: LoginUser): void {
+  localStorage.setItem(USER_KEY, JSON.stringify(user));
 }
 
-export function saveCart(userId, cart): void {
+export function saveCart(userId: string, cart: CartItem[]): void {
   localStorage.setItem(userId, JSON.stringify(cart));
 }
 
-export function clearCart(userId): void {
+export function clearCart(userId: string): void {
   localStorage.removeItem(userId);
 }
 
-export function getUser() {
-  return JSON.parse(localStorage.getItem(USER_KEY));
+export function getUser(): LoginUser | null {
+  const item = localStorage.getItem(USER_KEY);
+  return item ? JSON.parse(item) : null;
 }
 
 export function deleteUser(): void {
   localStorage.removeItem(USER_KEY);
 }
+
 export function validToken() {
   getUser();
 }
+
 export const moneyFormatter = new Intl.NumberFormat("en-US", {
   style: "currency",
   currency: "USD",
   minimumFractionDigits: 2,
 });
+
 export const cartTotalItems = (items: Array<CartItem>): number => {
   return items.reduce((acc, obj) => {
     return acc + Number(obj.quantity);
   }, 0);
 };
+
 export const calculatedCartTotal = (items: Array<CartItem>): number => {
   if (items.length > 0) {
     return items.reduce((acc, d) => {
@@ -53,7 +68,9 @@ export const handleDateFormat = (date: number): string => {
   if (date) {
     return new Date(date).toISOString().substring(0, 10);
   }
+  return "";
 };
+
 export const handleType = (type: string, val: number): number => {
   if (type === "MINUS" && val > 0) return --val;
   else if (type === "ADD") return ++val;

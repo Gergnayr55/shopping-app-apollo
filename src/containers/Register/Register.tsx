@@ -1,7 +1,6 @@
 import React, { useContext, MouseEvent, ReactElement } from "react";
 import "./Register.css";
 import CustomButton from "../../components/CustomButton";
-import { withRouter } from "react-router-dom";
 import { useMutation } from "@apollo/client";
 import { AccountContext } from "../../State/AccountContext";
 import { Box, TextField, Button, Stack } from "@mui/material";
@@ -143,4 +142,4 @@ const Register = (): ReactElement => {
   );
 };
 
-export default withRouter(Register);
+export default Register;

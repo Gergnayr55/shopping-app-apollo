@@ -1,7 +1,7 @@
 import React, { ReactElement } from "react";
 import CustomButton from "../../components/CustomButton";
 import { Typography, Grid, Stack } from "@mui/material";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { CartItem } from "../../components/MyDrawer/MyDrawer";
 import BackButton from "../../components/BackButton";
 import MyCartItem from "../../components/MyCartItem";
@@ -9,7 +9,7 @@ import { useReactiveVar } from "@apollo/client";
 import { cartItemsVar } from "../../apollo-client/cache";
 
 export default function MyCart(): ReactElement {
-  const history = useHistory();
+  const navigate = useNavigate();
   const userCartItems = useReactiveVar(cartItemsVar);
   return (
     <Grid
@@ -20,7 +20,7 @@ export default function MyCart(): ReactElement {
       justifyContent="center"
     >
       <Stack direction="row" alignItems="center" m={"2.5%"}>
-        <BackButton title="Go Back" onClick={() => history.goBack()} />
+        <BackButton title="Go Back" onClick={() => navigate(-1)} />
         <Typography
           sx={{ margin: "0 auto" }}
           variant="h4"
@@ -30,7 +30,7 @@ export default function MyCart(): ReactElement {
           My Cart
         </Typography>
         <CustomButton
-          onClick={() => history.push("/checkout")}
+          onClick={() => navigate("/checkout")}
           style={{ width: "250px" }}
           text="Go to checkout"
         />

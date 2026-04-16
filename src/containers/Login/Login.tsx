@@ -4,7 +4,7 @@ import { useMutation } from "@apollo/client";
 import { saveUser } from "../../utils";
 import CustomButton from "../../components/CustomButton";
 import { AccountContext } from "../../State/AccountContext";
-import { withRouter, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import CustomInput from "../../components/CustomInput";
 import Button from "@mui/material/Button";
 import { Typography, Box } from "@mui/material";
@@ -102,4 +102,4 @@ function Login(): ReactElement {
   );
 }
 
-export default withRouter(Login);
+export default Login;

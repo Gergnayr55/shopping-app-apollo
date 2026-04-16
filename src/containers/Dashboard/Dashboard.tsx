@@ -3,7 +3,7 @@ import Toolbar from "../../components/Toolbar";
 import { useQuery, useReactiveVar } from "@apollo/client";
 import Skin from "../../components/Skin";
 import MyDrawer from "../../components/MyDrawer";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { DashboardContext } from "./State/DashboardContext";
 import "./Dashboard.css";
 import Grid from "@mui/material/Grid";
@@ -21,7 +21,7 @@ const Dashboard = (): ReactElement => {
   useEffect(() => {
     if (cartData && cartData.myCartItems) cartItemsVar(cartData.myCartItems);
   }, [cartData]);
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const { data, error, loading } = useQuery(GET_ITEMS);
 
@@ -34,7 +34,7 @@ const Dashboard = (): ReactElement => {
         />
 
         <MyDrawer
-          handleCheckout={() => history.push("/checkout")}
+          handleCheckout={() => navigate("/checkout")}
           visible={drawerOpen}
           onClose={() => setDrawerOpen(false)}
         />
@@ -76,7 +76,7 @@ const Dashboard = (): ReactElement => {
       />
 
       <MyDrawer
-        handleCheckout={() => history.push("/checkout")}
+        handleCheckout={() => navigate("/checkout")}
         visible={drawerOpen}
         onClose={() => setDrawerOpen(false)}
       />

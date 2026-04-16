@@ -1,5 +1,4 @@
-import { gql } from "apollo-server-express";
-export const typeDefs = gql`
+export const typeDefs = `#graphql
   # Comments in GraphQL strings (such as this one) start with the hash (#) symbol.
   type Tokens {
     accessToken: String

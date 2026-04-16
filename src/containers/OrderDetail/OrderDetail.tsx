@@ -1,6 +1,6 @@
 import React, { ReactElement } from "react";
 import { Box, Typography, Grid, Stack } from "@mui/material";
-import { useHistory, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { handleDateFormat, moneyFormatter } from "../../utils";
 import BackButton from "../../components/BackButton";
 import MyCartItem from "../../components/MyCartItem";
@@ -16,7 +16,7 @@ export type IdParam = {
 };
 
 export default function OrderDetail(): ReactElement {
-  const history = useHistory();
+  const navigate = useNavigate();
   const { _id } = useParams<IdParam>();
 
   const { data, loading } = useQuery(GET_ORDER_ITEM, {
@@ -62,7 +62,7 @@ export default function OrderDetail(): ReactElement {
           <BackButton
             title="Go Back"
             color="#fff"
-            onClick={() => history.goBack()}
+            onClick={() => navigate(-1)}
           />
           <Typography
             sx={{

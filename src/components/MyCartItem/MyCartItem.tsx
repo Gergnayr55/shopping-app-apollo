@@ -2,7 +2,7 @@ import React, { ReactElement, MouseEvent } from "react";
 import { Typography, Divider, Stack, Button } from "@mui/material";
 import { handleType, moneyFormatter } from "../../utils";
 
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
@@ -26,7 +26,7 @@ export default function MyCartItem({
   item,
   readOnly = false,
 }: MyCartItemProps): ReactElement {
-  const history = useHistory();
+  const navigate = useNavigate();
   const iconStyle = {
     fontSize: { xs: "14px", md: "24px" },
     "&:hover": { cursor: "pointer" },
@@ -127,7 +127,7 @@ export default function MyCartItem({
         onClick={(e: MouseEvent<HTMLButtonElement>) => {
           e.preventDefault();
           if (direction === "column") {
-            history.push(`/skin/${item._id}`);
+            navigate(`/skin/${item._id}`);
           } else {
             return undefined;
           }

@@ -2,8 +2,8 @@ import React, { ReactElement, MouseEvent, useEffect } from "react";
 import Grid from "@mui/material/Grid";
 import { Box, Typography } from "@mui/material";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
-import { cartTotalItems, calculatedCartTotal, getUser } from "../../utils";
-import { useHistory, useParams } from "react-router-dom";
+import { cartTotalItems, calculatedCartTotal } from "../../utils";
+import { useNavigate, useParams } from "react-router-dom";
 import { Stack } from "@mui/system";
 import Aside from "../../components/Aside";
 import CartOverview from "../../components/CartOverview";
@@ -12,15 +12,14 @@ import VisaImg from "../../icons/visa-sm.png";
 import BackButton from "../../components/BackButton";
 import { cartItemsVar } from "../../apollo-client/cache";
 import { useReactiveVar } from "@apollo/client";
+import { useRequireAuth } from "../../hooks/useRequireAuth";
 export type RouteParam = {
   id: string;
 };
-export default function OrderSuccess(): ReactElement {
-  const user = getUser();
-  const history = useHistory();
-
+export default function OrderSuccess(): ReactElement | null {
+  const navigate = useNavigate();
+  const user = useRequireAuth();
   const { id } = useParams<RouteParam>();
-
   const userCartItems = useReactiveVar(cartItemsVar);
 
   useEffect(() => {
@@ -28,6 +27,8 @@ export default function OrderSuccess(): ReactElement {
       cartItemsVar([]);
     };
   }, []);
+
+  if (!user) return null;
 
   return (
     <Grid
@@ -53,7 +54,7 @@ export default function OrderSuccess(): ReactElement {
             color="#fff"
             onClick={() => {
               cartItemsVar([]);
-              history.replace("/home");
+              navigate("/home", { replace: true });
             }}
           />
           <Typography
@@ -172,11 +173,8 @@ export default function OrderSuccess(): ReactElement {
                       src={VisaImg}
                       alt="card"
                       style={{
-                        backgroundSize: "contain",
-                        width: "min-content",
-                        height: "auto",
-                        maxHeight: "40px",
-                        imageRendering: "auto",
+                        width: "auto",
+                        height: "40px",
                       }}
                     />
                     <Typography
@@ -231,7 +229,7 @@ export default function OrderSuccess(): ReactElement {
               isCheckout
               handleCheckout={(e: MouseEvent<HTMLButtonElement>) => {
                 cartItemsVar([]);
-                history.replace("/home");
+                navigate("/home", { replace: true });
               }}
             />
           </Aside>

@@ -4,8 +4,9 @@ import LocalShippingOutlinedIcon from "@mui/icons-material/LocalShippingOutlined
 import CreditCardOutlinedIcon from "@mui/icons-material/CreditCardOutlined";
 import ShoppingBagOutlinedIcon from "@mui/icons-material/ShoppingBagOutlined";
 import { Box, Typography, Grid, Divider, Stack } from "@mui/material";
-import { useHistory } from "react-router-dom";
-import { calculatedCartTotal, getUser, handleTotalItems } from "../../utils";
+import { useNavigate } from "react-router-dom";
+import { calculatedCartTotal, handleTotalItems } from "../../utils";
+import { useRequireAuth } from "../../hooks/useRequireAuth";
 import { CartItem } from "../../components/MyDrawer/MyDrawer";
 import BackButton from "../../components/BackButton";
 import MyCartItem from "../../components/MyCartItem";
@@ -18,16 +19,17 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import { cartItemsVar } from "../../apollo-client/cache";
 import { MY_ORDER } from "../../apollo-client/mutations";
 
-export default function Checkout(): ReactElement {
-  const history = useHistory();
-
-  const user = getUser();
+export default function Checkout(): ReactElement | null {
+  const navigate = useNavigate();
   const theme = useTheme();
   const userCartItems = useReactiveVar(cartItemsVar);
   const largeDevice = useMediaQuery(theme.breakpoints.up("sm"));
+  const [handleOrder, { data }] = useMutation(MY_ORDER);
+
+  const user = useRequireAuth();
+  if (!user) return null;
 
   const totalOrder = calculatedCartTotal(userCartItems);
-  const [handleOrder, { data }] = useMutation(MY_ORDER);
   const cartItemsCopy = [...userCartItems];
   const cleanItems = cartItemsCopy.map((itm) => {
     const newItm = {
@@ -113,7 +115,7 @@ export default function Checkout(): ReactElement {
       if (data && data.handleOrder) {
         console.log("Successfully sent Order");
 
-        history.push(`/order-success/${data.handleOrder.id}`);
+        navigate(`/order-success/${data.handleOrder.id}`);
       }
     } catch (e) {
       console.error("Cant send Order", e);
@@ -152,7 +154,7 @@ export default function Checkout(): ReactElement {
           <BackButton
             title="Go Back"
             color="#fff"
-            onClick={() => history.goBack()}
+            onClick={() => navigate(-1)}
           />
           <Typography
             sx={{ width: "100%", color: "#fff" }}
@@ -283,11 +285,8 @@ export default function Checkout(): ReactElement {
                 src={VisaImg}
                 alt="card"
                 style={{
-                  backgroundSize: "contain",
-                  width: "min-content",
-                  height: "auto",
-                  maxHeight: "40px",
-                  imageRendering: "auto",
+                  width: "auto",
+                  height: "40px",
                 }}
               />
               <Typography

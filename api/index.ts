@@ -1,7 +1,7 @@
 import { ApolloServer } from '@apollo/server';
 import { typeDefs } from "./schema";
 import { seedData } from './data/product-data-local';
-import { expressMiddleware } from '@apollo/server/express4';
+import { expressMiddleware } from '@as-integrations/express4';
 import express, { Request, Response } from "express";
 import cookieParser from "cookie-parser";
 import cors, { CorsOptions } from "cors";
@@ -19,6 +19,7 @@ import { validateTokensMiddleware } from "./middleware";
 import { userRepo, skinRepo, orderRepo, cartRepo, seedDatabase } from "./dbconnection";
 import config from "./config/config";
 import { InsertOneResult, ObjectId } from "mongodb";
+import { GraphQLError } from "graphql";
 
 import {
   setTokens,
@@ -54,6 +55,7 @@ const resolvers = {
         if (isMyObjectEmpty(req.user)) {
           res.clearCookie("access");
           res.clearCookie("refresh");
+          throw new GraphQLError('Not authenticated', { extensions: { code: 'UNAUTHENTICATED' } });
         } else {
           const skinId = new ObjectId(args._id);
 
@@ -76,6 +78,7 @@ const resolvers = {
         if (isMyObjectEmpty(req.user)) {
           res.clearCookie("access");
           res.clearCookie("refresh");
+          throw new GraphQLError('Not authenticated', { extensions: { code: 'UNAUTHENTICATED' } });
         } else if (args._id) {
           const myId = new ObjectId(args._id);
 
@@ -94,6 +97,7 @@ const resolvers = {
         if (isMyObjectEmpty(req.user)) {
           res.clearCookie("access");
           res.clearCookie("refresh");
+          throw new GraphQLError('Not authenticated', { extensions: { code: 'UNAUTHENTICATED' } });
         } else {
           return await skinRepo.find().toArray();
         }
@@ -110,6 +114,7 @@ const resolvers = {
         if (isMyObjectEmpty(req.user)) {
           res.clearCookie("access");
           res.clearCookie("refresh");
+          throw new GraphQLError('Not authenticated', { extensions: { code: 'UNAUTHENTICATED' } });
         } else if (req.user) {
           const myId = req.user.id.toString();
           return await orderRepo.find({ userId: myId }).toArray();
@@ -126,6 +131,7 @@ const resolvers = {
         if (isMyObjectEmpty(req.user)) {
           res.clearCookie("access");
           res.clearCookie("refresh");
+          throw new GraphQLError('Not authenticated', { extensions: { code: 'UNAUTHENTICATED' } });
         } else if (req.user) {
           const userId = req.user.id.toString();
           return await cartRepo.find({ userId: userId }).toArray();

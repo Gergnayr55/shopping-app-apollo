@@ -2,6 +2,7 @@ import { Request, Response, NextFunction } from "express";
 import { validateAccessToken, validateRefreshToken } from "../utils"
 import { setTokens, tokenCookies } from "../utils"
 import { userRepo } from "../dbconnection";
+import { ObjectId } from "mongodb";
 import { JwtPayload } from "jsonwebtoken";
 interface MyToken extends JwtPayload {
   user?: any;
@@ -27,10 +28,10 @@ export async function validateTokensMiddleware(
 
   if (decodedRefreshToken &&  typeof decodedRefreshToken !== 'string' && decodedRefreshToken.user) {
     const user = await userRepo.findOne({
-      _id: decodedRefreshToken.user.id,
+      _id: new ObjectId(decodedRefreshToken.user.id),
     });
 
-    if (!user || user._id !== decodedRefreshToken.user.id) {
+    if (!user || user._id.toString() !== decodedRefreshToken.user.id.toString()) {
       res.clearCookie("access");
       res.clearCookie("refresh");
       return next();

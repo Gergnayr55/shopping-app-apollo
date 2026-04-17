@@ -18,12 +18,12 @@ interface RefreshUser {
 }
 
 // Checks for empty object
-export const isMyObjectEmpty = (obj: any) => !Object.keys(obj).length;
+export const isMyObjectEmpty = (obj: any) => !obj || !Object.keys(obj).length;
 
 // Sets the user's access and refresh tokens
 export function setTokens(user: Record<string, any>) {
-  const sevenDays = 60 * 60 * 24 * 7 * 1000;
-  const fifteenMins = 60 * 15 * 1000;
+  const sevenDays = 60 * 60 * 24 * 7;
+  const fifteenMins = 60 * 15;
   const accessUser: AccessUser = {
     id: user._id,
   };

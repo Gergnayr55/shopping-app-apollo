@@ -28,7 +28,7 @@ const errorLink = onError(({ graphQLErrors }) => {
 });
 
 const httpLink = new HttpLink({
-  uri: process.env.REACT_APP_API_KEY,
+  uri: import.meta.env.VITE_API_KEY,
   credentials: 'include',
 });
 
@@ -44,7 +44,7 @@ const App = () => {
       });
     }
 
-    init().catch(console.error.message);
+    init().catch(console.error);
   }, []);
 
   const client = new ApolloClient({

@@ -1,7 +1,12 @@
 import React from "react";
 import { Navigate } from "react-router-dom";
 
-const PrivateRoute = ({ authed, children }) => {
+type PrivateRouteProps = {
+  authed: boolean;
+  children: React.ReactNode;
+};
+
+const PrivateRoute = ({ authed, children }: PrivateRouteProps) => {
   return authed ? children : <Navigate to="/" replace />;
 };
 

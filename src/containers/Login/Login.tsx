@@ -47,7 +47,7 @@ function Login(): ReactElement {
           value={email}
           customInputProps={{
             onBlur: () => setFocusedInput(""),
-            onFocus: setFocusedInput("email"),
+            onFocus: () => setFocusedInput("email"),
           }}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
             setEmail(e.target.value)
@@ -61,7 +61,7 @@ function Login(): ReactElement {
           value={password}
           customInputProps={{
             onBlur: () => setFocusedInput(""),
-            onFocus: setFocusedInput("password"),
+            onFocus: () => setFocusedInput("password"),
           }}
           onChange={(e) => setPassword(e.target.value)}
           required={true}

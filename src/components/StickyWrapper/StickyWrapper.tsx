@@ -1,6 +1,11 @@
 import React, { useState, useRef, useEffect } from "react";
 import "./StickyWrapper.css";
-const StickyWrapper = ({ children }) => {
+
+type StickyWrapperProps = {
+  children: React.ReactNode;
+};
+
+const StickyWrapper = ({ children }: StickyWrapperProps) => {
   //   const leadershipRef = useRef(null);
   //   const providerRef = useRef(null);
   //   const operationsRef = useRef(null);

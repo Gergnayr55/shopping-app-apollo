@@ -1,7 +1,7 @@
 import React, { ReactElement, MouseEvent } from "react";
 import { useMutation } from "@apollo/client";
 import { deleteUser } from "../../utils";
-import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
+import { ShoppingCartOutlined } from "@mui/icons-material";
 import { Box, Badge } from "@mui/material";
 import "./Toolbar.css";
 import List from "../List";
@@ -60,7 +60,7 @@ function Toolbar({ viewCartDrawer, total = 0 }: ToolbarProps): ReactElement {
               "&.MuiBadge-root": {},
             }}
           >
-            <ShoppingCartOutlinedIcon htmlColor="#fff" fontSize="large" />
+            <ShoppingCartOutlined htmlColor="#fff" fontSize="large" />
           </Badge>
         </Box>
       </Box>

@@ -1,8 +1,6 @@
 import React, { ReactElement, MouseEvent } from "react";
 import { Radio } from "@mui/material";
-import LocalShippingOutlinedIcon from "@mui/icons-material/LocalShippingOutlined";
-import CreditCardOutlinedIcon from "@mui/icons-material/CreditCardOutlined";
-import ShoppingBagOutlinedIcon from "@mui/icons-material/ShoppingBagOutlined";
+import { LocalShippingOutlined, CreditCardOutlined, ShoppingBagOutlined } from "@mui/icons-material";
 import { Box, Typography, Grid, Divider, Stack } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { calculatedCartTotal, handleTotalItems } from "../../utils";
@@ -194,7 +192,7 @@ export default function Checkout(): ReactElement | null {
             }}
           >
             <Stack spacing={2} direction="row" alignItems="center">
-              <LocalShippingOutlinedIcon fontSize="large" />
+              <LocalShippingOutlined fontSize="large" />
               <Typography
                 variant="h5"
                 gutterBottom
@@ -250,7 +248,7 @@ export default function Checkout(): ReactElement | null {
             }}
           >
             <Stack spacing={2} direction="row" alignItems="center">
-              <CreditCardOutlinedIcon fontSize="large" />
+              <CreditCardOutlined fontSize="large" />
               <Typography
                 variant="h5"
                 gutterBottom
@@ -317,7 +315,7 @@ export default function Checkout(): ReactElement | null {
             }}
           >
             <Stack spacing={2} direction="row" alignItems="center">
-              <ShoppingBagOutlinedIcon fontSize="large" />
+              <ShoppingBagOutlined fontSize="large" />
               <Typography
                 variant="h5"
                 gutterBottom

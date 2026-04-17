@@ -3,9 +3,7 @@ import { Typography, Divider, Stack, Button } from "@mui/material";
 import { handleType, moneyFormatter } from "../../utils";
 
 import { useNavigate } from "react-router-dom";
-import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
-import AddIcon from "@mui/icons-material/Add";
-import RemoveIcon from "@mui/icons-material/Remove";
+import { DeleteOutline, Add, Remove } from "@mui/icons-material";
 import { CartItem } from "../MyDrawer/MyDrawer";
 import { useMutation, useReactiveVar } from "@apollo/client";
 import { TOGGLE_CART } from "../../apollo-client/mutations";
@@ -188,7 +186,7 @@ export default function MyCartItem({
           <Button
             variant="text"
             color="inherit"
-            startIcon={<DeleteOutlineIcon />}
+            startIcon={<DeleteOutline />}
             onClick={async () => await handleMultiItm(item, "REMOVE")}
             sx={{
               textTransform: "capitalize",
@@ -203,14 +201,14 @@ export default function MyCartItem({
           >
             Remove
           </Button>
-          <RemoveIcon
+          <Remove
             sx={iconStyle}
             onClick={async () => await handleMultiItm(item, "MINUS")}
           />
           <Typography sx={{ fontSize: { xs: "12px", md: "inherit" } }}>
             {item.quantity}
           </Typography>
-          <AddIcon
+          <Add
             sx={iconStyle}
             onClick={async () => await handleMultiItm(item, "ADD")}
           />

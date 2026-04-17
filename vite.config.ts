@@ -5,6 +5,9 @@ import tsconfigPaths from 'vite-tsconfig-paths';
 
 export default defineConfig({
   plugins: [react(), tsconfigPaths()],
+  optimizeDeps: {
+    include: ['@mui/material', '@mui/icons-material'],
+  },
   server: {
     port: 3000,
     host: '0.0.0.0',

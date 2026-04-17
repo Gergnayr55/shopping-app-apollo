@@ -1,6 +1,6 @@
 import React, { ReactElement } from "react";
 import Button from "@mui/material/Button";
-import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
+import { KeyboardArrowLeft } from "@mui/icons-material";
 interface BackButtonProps {
   title?: string;
   color?: string;
@@ -16,7 +16,7 @@ export default function BackButton({
     <Button
       variant="text"
       color="inherit"
-      startIcon={<KeyboardArrowLeftIcon />}
+      startIcon={<KeyboardArrowLeft />}
       onClick={onClick}
       sx={{
         width: "fit-content",

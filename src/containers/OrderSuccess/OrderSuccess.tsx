@@ -1,7 +1,7 @@
 import React, { ReactElement, MouseEvent, useEffect } from "react";
 import Grid from "@mui/material/Grid";
 import { Box, Typography } from "@mui/material";
-import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
+import { CheckCircleOutline } from "@mui/icons-material";
 import { cartTotalItems, calculatedCartTotal } from "../../utils";
 import { useNavigate, useParams } from "react-router-dom";
 import { Stack } from "@mui/system";
@@ -86,7 +86,7 @@ export default function OrderSuccess(): ReactElement | null {
             sx={{ width: "100%" }}
             mb="15px"
           >
-            <CheckCircleOutlineIcon color="primary" fontSize="large" />
+            <CheckCircleOutline color="primary" fontSize="large" />
             <Typography variant="h6" textTransform="capitalize" gutterBottom>
               Thank you {user.firstName}!
             </Typography>

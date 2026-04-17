@@ -1,8 +1,7 @@
 import React, { ReactElement } from "react";
 import { Box, Typography } from "@mui/material";
 import { styled } from "@mui/system";
-import AddIcon from "@mui/icons-material/Add";
-import RemoveIcon from "@mui/icons-material/Remove";
+import { Add, Remove } from "@mui/icons-material";
 import Fab from "@mui/material/Fab";
 
 interface AddToCartProps {
@@ -45,7 +44,7 @@ export default function AddToCartButton({
             sx={{ width: "32px", height: "32px", zIndex: 10 }}
             onClick={handleRemoveItem}
           >
-            <RemoveIcon />
+            <Remove />
           </MyFab>
           <Typography
             align="center"
@@ -63,7 +62,7 @@ export default function AddToCartButton({
             sx={{ width: "32px", height: "32px", zIndex: 10 }}
             onClick={handleAddItem}
           >
-            <AddIcon />
+            <Add />
           </MyFab>
         </>
       ) : (

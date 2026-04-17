@@ -21,8 +21,7 @@ import { getUser } from "../../utils";
 import { ObjectId } from "mongodb";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
-import MenuIcon from "@mui/icons-material/Menu";
-import CloseIcon from "@mui/icons-material/Close";
+import { Menu, Close } from "@mui/icons-material";
 export type UserType = {
   _id: ObjectId;
   __typename: string;
@@ -111,9 +110,9 @@ export default function List({ arr, onLogout }: ListProps): ReactElement | null 
           ) : (
             <>
               {open ? (
-                <CloseIcon fontSize="large" />
+                <Close fontSize="large" />
               ) : (
-                <MenuIcon fontSize="large" />
+                <Menu fontSize="large" />
               )}
             </>
           )}

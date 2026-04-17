@@ -5,10 +5,12 @@ import AccountWrapper from "./State/index";
 import Login from "./containers/Login";
 import Register from "./containers/Register";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { getUser } from "./utils";
+import { getUser, deleteUser } from "./utils";
 import PrivateRoute from "./components/PrivateRoute";
 import { DashboardProvider } from "./containers/Dashboard/State/DashboardContext";
-import { ApolloClient, ApolloProvider } from "@apollo/client";
+import { ApolloClient, ApolloProvider, from } from "@apollo/client";
+import { onError } from "@apollo/client/link/error";
+import { HttpLink } from "@apollo/client";
 import Checkout from "./containers/Checkout";
 import MyCart from "./containers/MyCart";
 import OrderSuccess from "./containers/OrderSuccess";
@@ -17,6 +19,18 @@ import OrderDetail from "./containers/OrderDetail";
 import { typeDefs } from "./apollo-client/typeDefs";
 import { cache } from "./apollo-client/cache";
 import { persistCache, LocalStorageWrapper } from "apollo3-cache-persist";
+
+const errorLink = onError(({ graphQLErrors }) => {
+  if (graphQLErrors?.some(e => e.extensions?.code === 'UNAUTHENTICATED')) {
+    deleteUser();
+    window.location.href = '/';
+  }
+});
+
+const httpLink = new HttpLink({
+  uri: process.env.REACT_APP_API_KEY,
+  credentials: 'include',
+});
 
 const App = () => {
   const auth = getUser();
@@ -35,8 +49,7 @@ const App = () => {
 
   const client = new ApolloClient({
     cache,
-    uri: process.env.REACT_APP_API_KEY,
-    credentials: "include",
+    link: from([errorLink, httpLink]),
     typeDefs,
   });
 

@@ -29,8 +29,6 @@ services:
       - api
     env_file:
       - dev.env
-    environment:
-      HOST: "0.0.0.0"
     command: npm start
     volumes:
       - .:/app

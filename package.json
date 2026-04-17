@@ -38,51 +38,31 @@
     "react-dom": "^18.3.1",
     "react-modal": "^3.14.4",
     "react-router-dom": "^6.30.3",
-    "react-scripts": "^5.0.1",
     "typescript": "^5.7.2",
     "usehooks-ts": "^2.9.1",
     "web-vitals": "^1.1.2"
   },
   "scripts": {
-    "start": "craco start",
+    "start": "vite",
     "api": "nodemon --exec node --no-warnings=ExperimentalWarning --loader ts-node/esm api/index.ts",
-    "flow": "flow",
-    "build": "craco build",
-    "test": "craco test",
-    "eject": "react-scripts eject"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "test": "vitest run"
   },
   "devDependencies": {
-    "@babel/cli": "^7.16.0",
-    "@babel/core": "^7.16.0",
-    "@babel/preset-flow": "^7.16.0",
-    "@craco/craco": "^7.1.0",
     "@types/bcrypt": "^5.0.2",
     "@types/cookie-parser": "^1.4.3",
     "@types/cors": "^2.8.19",
     "@types/jsonwebtoken": "^9.0.1",
-    "flow-bin": "^0.164.0",
-    "ts-node": "^10.9.2"
+    "@vitejs/plugin-react": "^6.0.1",
+    "@vitest/ui": "^4.1.4",
+    "jsdom": "^28.1.0",
+    "ts-node": "^10.9.2",
+    "vite": "^8.0.8",
+    "vite-tsconfig-paths": "^6.1.1",
+    "vitest": "^4.1.4"
   },
   "overrides": {
-    "fork-ts-checker-webpack-plugin": "^6.5.3",
     "typescript": "^5.7.2"
   }
 }

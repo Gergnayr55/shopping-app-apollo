@@ -1,5 +1,5 @@
 import React, { ReactElement, MouseEvent, useEffect } from "react";
-import Grid from "@mui/material/Grid";
+import Grid2 from "@mui/material/Grid2";
 import { Box, Typography } from "@mui/material";
 import { CheckCircleOutline } from "@mui/icons-material";
 import { cartTotalItems, calculatedCartTotal } from "../../utils";
@@ -31,7 +31,7 @@ export default function OrderSuccess(): ReactElement | null {
   if (!user) return null;
 
   return (
-    <Grid
+    <Grid2
       container
       direction="column"
       spacing={2}
@@ -235,6 +235,6 @@ export default function OrderSuccess(): ReactElement | null {
           </Aside>
         </Stack>
       </Stack>
-    </Grid>
+    </Grid2>
   );
 }

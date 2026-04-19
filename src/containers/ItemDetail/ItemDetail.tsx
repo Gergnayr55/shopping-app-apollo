@@ -2,7 +2,8 @@ import React, { useContext, ReactElement, useMemo } from "react";
 import { DashboardContext } from "../Dashboard/State/DashboardContext";
 import "./ItemDetail.css";
 import Toolbar from "../../components/Toolbar";
-import { Box, Typography, Grid, Divider, Stack } from "@mui/material";
+import { Box, Typography, Divider, Stack } from "@mui/material";
+import Grid2 from "@mui/material/Grid2";
 import { useNavigate, useParams } from "react-router-dom";
 import { cartTotalItems, handleType, moneyFormatter } from "../../utils";
 import MyDrawer, { CartItem } from "../../components/MyDrawer/MyDrawer";
@@ -191,7 +192,7 @@ function ItemDetail(): ReactElement {
   if (error) console.error(myError);
   if (itemLoading) return <Skeleton variant="rectangular" />;
   return (
-    <Grid
+    <Grid2
       container
       direction="column"
       spacing={1}
@@ -208,12 +209,10 @@ function ItemDetail(): ReactElement {
         onClose={() => setDrawerOpen(false)}
       />
       <div className="item-detail-container">
-        <Grid
+        <Grid2
           direction="column"
           alignItems="center"
-          md={10}
-          sm={12}
-          xs={12}
+          size={{ xs: 12, sm: 12, md: 10 }}
           sx={{
             marginTop: { xs: "120px", md: "76px" },
             padding: { xs: "0 0 100px", md: "15px 50px 100px" },
@@ -282,7 +281,7 @@ function ItemDetail(): ReactElement {
               </Typography>
             </Box>
           </Box>
-        </Grid>
+        </Grid2>
         {largeDevice && !itemLoading && myData.getSkin ? (
           <Stack spacing={1} justifyContent="flex-end" alignItems="center">
             <Aside height={"calc(100% - 76px)"}>
@@ -341,7 +340,7 @@ function ItemDetail(): ReactElement {
           </Box>
         )}
       </div>
-    </Grid>
+    </Grid2>
   );
 }
 export default ItemDetail;

@@ -6,7 +6,7 @@ import MyDrawer from "../../components/MyDrawer";
 import { useNavigate } from "react-router-dom";
 import { DashboardContext } from "./State/DashboardContext";
 import "./Dashboard.css";
-import Grid from "@mui/material/Grid";
+import Grid2 from "@mui/material/Grid2";
 import Skeleton from "@mui/material/Skeleton";
 import { cartItemsVar } from "../../apollo-client/cache";
 import { GET_CART_ITEMS, GET_ITEMS } from "../../apollo-client/queries";
@@ -27,7 +27,7 @@ const Dashboard = (): ReactElement => {
 
   if (loading) {
     return (
-      <Grid container direction="column" spacing={2}>
+      <Grid2 container direction="column" spacing={2}>
         <Toolbar
           total={cartTotalItems(userCartItems)}
           viewCartDrawer={() => setDrawerOpen(!drawerOpen)}
@@ -38,7 +38,7 @@ const Dashboard = (): ReactElement => {
           visible={drawerOpen}
           onClose={() => setDrawerOpen(false)}
         />
-        <Grid
+        <Grid2
           container
           direction="column"
           alignItems="center"
@@ -46,11 +46,9 @@ const Dashboard = (): ReactElement => {
           wrap="nowrap"
           style={{ margin: "10rem 0 5rem" }}
         >
-          <Grid
+          <Grid2
             direction="column"
-            md={12}
-            sm={12}
-            xs={12}
+            size={{ xs: 12, sm: 12, md: 12 }}
             style={{ padding: 12, width: "calc(100vw - 25%)" }}
           >
             {[0, 0, 0, 0, 0].map((itm, idx) => (
@@ -58,9 +56,9 @@ const Dashboard = (): ReactElement => {
                 <Skeleton animation="pulse" height={"450px"} />
               </React.Fragment>
             ))}
-          </Grid>
-        </Grid>
-      </Grid>
+          </Grid2>
+        </Grid2>
+      </Grid2>
     );
   }
   if (error) {
@@ -69,7 +67,7 @@ const Dashboard = (): ReactElement => {
   }
 
   return (
-    <Grid container direction="column" spacing={2}>
+    <Grid2 container direction="column" spacing={2}>
       <Toolbar
         total={cartTotalItems(userCartItems)}
         viewCartDrawer={() => setDrawerOpen(!drawerOpen)}
@@ -80,7 +78,7 @@ const Dashboard = (): ReactElement => {
         visible={drawerOpen}
         onClose={() => setDrawerOpen(false)}
       />
-      <Grid
+      <Grid2
         container
         direction="column"
         alignItems="center"
@@ -91,12 +89,10 @@ const Dashboard = (): ReactElement => {
         {data &&
           data.getSkins.length > 0 &&
           data.getSkins.map((itm: CartItem, idx: number) => (
-            <Grid
+            <Grid2
               key={`${itm}-${idx}`}
               direction="column"
-              md={12}
-              sm={12}
-              xs={12}
+              size={{ xs: 12, sm: 12, md: 12 }}
               style={{ padding: 12, width: "calc(100vw - 25%)" }}
             >
               <Skin
@@ -110,10 +106,10 @@ const Dashboard = (): ReactElement => {
                 price={itm.price}
                 uri={`/skin/${itm._id}`}
               />
-            </Grid>
+            </Grid2>
           ))}
-      </Grid>
-    </Grid>
+      </Grid2>
+    </Grid2>
   );
 };
 export default Dashboard;

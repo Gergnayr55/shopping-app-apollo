@@ -1,5 +1,6 @@
 import React, { ReactElement } from "react";
-import { Box, Typography, Grid, Stack } from "@mui/material";
+import { Box, Typography, Stack } from "@mui/material";
+import Grid2 from "@mui/material/Grid2";
 import { useNavigate, useParams } from "react-router-dom";
 import { handleDateFormat, moneyFormatter } from "../../utils";
 import BackButton from "../../components/BackButton";
@@ -38,7 +39,7 @@ export default function OrderDetail(): ReactElement {
     return <Skeleton variant="rectangular" />;
   }
   return (
-    <Grid
+    <Grid2
       container
       direction="column"
       alignItems="center"
@@ -196,6 +197,6 @@ export default function OrderDetail(): ReactElement {
           ))
         )}
       </Stack>
-    </Grid>
+    </Grid2>
   );
 }

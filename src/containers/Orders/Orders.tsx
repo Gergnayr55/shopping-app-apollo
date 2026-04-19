@@ -1,5 +1,5 @@
 import React, { ReactElement } from "react";
-import Grid from "@mui/material/Grid";
+import Grid2 from "@mui/material/Grid2";
 import Skeleton from "@mui/material/Skeleton";
 import { Box, Divider, Typography } from "@mui/material";
 import { handleDateFormat, moneyFormatter } from "../../utils";
@@ -41,7 +41,7 @@ export default function Orders(): ReactElement {
   if (loading) return <Skeleton variant="rectangular" height="500px" />;
   return (
     <>
-      <Grid
+      <Grid2
         container
         direction="column"
         alignItems="center"
@@ -198,7 +198,7 @@ export default function Orders(): ReactElement {
             ))
           )}
         </Box>
-      </Grid>
+      </Grid2>
     </>
   );
 }

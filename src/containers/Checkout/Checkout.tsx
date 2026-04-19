@@ -1,7 +1,8 @@
 import React, { ReactElement, MouseEvent } from "react";
 import { Radio } from "@mui/material";
 import { LocalShippingOutlined, CreditCardOutlined, ShoppingBagOutlined } from "@mui/icons-material";
-import { Box, Typography, Grid, Divider, Stack } from "@mui/material";
+import { Box, Typography, Divider, Stack } from "@mui/material";
+import Grid2 from "@mui/material/Grid2";
 import { useNavigate } from "react-router-dom";
 import { calculatedCartTotal, handleTotalItems } from "../../utils";
 import { useRequireAuth } from "../../hooks/useRequireAuth";
@@ -121,13 +122,13 @@ export default function Checkout(): ReactElement | null {
   };
 
   return (
-    <Grid
+    <Grid2
       container
       direction="column"
       spacing={2}
       alignItems="center"
       justifyContent="center"
-      md={12}
+      size={{ md: 12 }}
       sx={{
         minWidth: "365px",
         padding: { xs: "0 25px", md: "0 105px", lg: "0 200px" },
@@ -361,6 +362,6 @@ export default function Checkout(): ReactElement | null {
           </Aside>
         </Stack>
       </Stack>
-    </Grid>
+    </Grid2>
   );
 }

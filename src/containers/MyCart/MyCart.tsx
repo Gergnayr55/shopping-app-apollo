@@ -1,6 +1,7 @@
 import React, { ReactElement } from "react";
 import CustomButton from "../../components/CustomButton";
-import { Typography, Grid, Stack } from "@mui/material";
+import { Typography, Stack } from "@mui/material";
+import Grid2 from "@mui/material/Grid2";
 import { useNavigate } from "react-router-dom";
 import { CartItem } from "../../components/MyDrawer/MyDrawer";
 import BackButton from "../../components/BackButton";
@@ -12,7 +13,7 @@ export default function MyCart(): ReactElement {
   const navigate = useNavigate();
   const userCartItems = useReactiveVar(cartItemsVar);
   return (
-    <Grid
+    <Grid2
       container
       direction="column"
       spacing={2}
@@ -52,6 +53,6 @@ export default function MyCart(): ReactElement {
           </React.Fragment>
         ))}
       </Stack>
-    </Grid>
+    </Grid2>
   );
 }

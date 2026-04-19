@@ -75,7 +75,7 @@ function Login(): ReactElement {
           }}
         >
           {data && data.login === null && (
-            <Typography variant="body2" color="red" style={{ padding: 5 }}>
+            <Typography variant="body2" sx={{ color: "red", padding: "5px" }}>
               Incorrect credentials entered. Please try again.
             </Typography>
           )}

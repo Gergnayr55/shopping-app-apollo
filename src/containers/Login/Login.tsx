@@ -7,7 +7,7 @@ import { AccountContext } from "../../State/AccountContext";
 import { Link } from "react-router-dom";
 import CustomInput from "../../components/CustomInput";
 import Button from "@mui/material/Button";
-import { Typography, Box } from "@mui/material";
+import { Typography, InputAdornment } from "@mui/material";
 import { USER_LOGIN } from "../../apollo-client/mutations";
 
 // TODO: Convert to TS
@@ -53,8 +53,8 @@ function Login(): ReactElement {
             setEmail(e.target.value)
           }
           required={true}
+          fullWidth
         />
-        <br />
         <CustomInput
           label="Password"
           type={passwordVisible ? "text" : "password"}
@@ -62,34 +62,27 @@ function Login(): ReactElement {
           customInputProps={{
             onBlur: () => setFocusedInput(""),
             onFocus: () => setFocusedInput("password"),
+            endAdornment: (
+              <InputAdornment position="end">
+                <Button
+                  variant="text"
+                  onClick={() => setPasswordVisible(!passwordVisible)}
+                  sx={{ fontSize: 11, minWidth: "auto" }}
+                >
+                  {passwordVisible ? "Hide" : "Show"}
+                </Button>
+              </InputAdornment>
+            ),
           }}
           onChange={(e) => setPassword(e.target.value)}
           required={true}
+          fullWidth
         />
-        <Box
-          sx={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            height: 50,
-          }}
-        >
-          {data && data.login === null && (
-            <Typography variant="body2" sx={{ color: "red", padding: "5px" }}>
-              Incorrect credentials entered. Please try again.
-            </Typography>
-          )}
-        </Box>
-        <div style={{ position: "relative" }}>
-          <Button
-            variant="text"
-            color="primary"
-            onClick={() => setPasswordVisible(!passwordVisible)}
-            style={{ position: "absolute", fontSize: 11, right: 0, bottom: 60 }}
-          >
-            {passwordVisible ? "Hide" : "Show"}
-          </Button>
-        </div>
+        {data && data.login === null && (
+          <Typography variant="body2" sx={{ color: "red" }}>
+            Incorrect credentials entered. Please try again.
+          </Typography>
+        )}
         <CustomButton onClick={submitLogin} />
 
         <p>

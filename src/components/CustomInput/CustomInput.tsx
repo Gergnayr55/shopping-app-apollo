@@ -7,10 +7,12 @@ export type TextFieldProps = {
   type: string;
   required: boolean;
   placeholder?: string;
+  fullWidth?: boolean;
   customInputProps: {
     onFocus: () => void;
     onBlur: () => void;
     onKeyDown?: () => void;
+    endAdornment?: React.ReactNode;
   };
 };
 
@@ -22,6 +24,7 @@ const CustomInput = ({
   placeholder,
   customInputProps,
   required,
+  fullWidth,
 }: TextFieldProps): ReactElement => (
   <TextField
     id="outlined-input"
@@ -33,6 +36,7 @@ const CustomInput = ({
     onChange={onChange}
     placeholder={placeholder}
     required={required}
+    fullWidth={fullWidth}
   />
 );
 export default CustomInput;

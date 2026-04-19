@@ -1,10 +1,12 @@
 import React, {
   createContext,
   useState,
+  useEffect,
   FC,
   SetStateAction,
   Dispatch,
 } from "react";
+import { useLocation } from "react-router-dom";
 
 interface IDashboardContext {
   menuOpen: boolean;
@@ -26,6 +28,12 @@ const { Provider, Consumer } = DashboardContext;
 const DashboardProvider: FC<{ children: React.ReactNode }> = ({ children }) => {
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
   const [drawerOpen, setDrawerOpen] = useState<boolean>(false);
+  const location = useLocation();
+
+  useEffect(() => {
+    setDrawerOpen(false);
+  }, [location.pathname]);
+
   const value: IDashboardContext = {
     menuOpen,
     setMenuOpen,

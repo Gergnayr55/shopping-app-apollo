@@ -1,4 +1,4 @@
-import React, { ReactElement, useContext, useEffect } from "react";
+import { ReactElement, useContext, useEffect } from "react";
 import Toolbar from "../../components/Toolbar";
 import { useQuery, useReactiveVar } from "@apollo/client";
 import Skin from "../../components/Skin";
@@ -52,9 +52,7 @@ const Dashboard = (): ReactElement => {
             style={{ padding: 12, width: "calc(100vw - 25%)" }}
           >
             {[0, 0, 0, 0, 0].map((itm, idx) => (
-              <React.Fragment key={`${itm}-${idx}`}>
-                <Skeleton animation="pulse" height={"450px"} />
-              </React.Fragment>
+              <Skeleton key={`${itm}-${idx}`} animation="pulse" height={"450px"} />
             ))}
           </Grid2>
         </Grid2>

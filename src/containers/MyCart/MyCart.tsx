@@ -1,4 +1,4 @@
-import React, { ReactElement } from "react";
+import { ReactElement } from "react";
 import CustomButton from "../../components/CustomButton";
 import { Typography, Stack } from "@mui/material";
 import Grid2 from "@mui/material/Grid2";
@@ -44,13 +44,12 @@ export default function MyCart(): ReactElement {
         sx={{ width: { xs: "375px", md: "800px" } }}
       >
         {userCartItems.map((itm: CartItem, idx: number) => (
-          <React.Fragment key={`${itm}-${idx}`}>
-            <MyCartItem
+          <MyCartItem
+              key={`${itm}-${idx}`}
               item={itm}
               direction="row"
               justifyContent="space-between"
             />
-          </React.Fragment>
         ))}
       </Stack>
     </Grid2>

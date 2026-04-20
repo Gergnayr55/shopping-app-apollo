@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Dashboard from "./containers/Dashboard";
 import ItemDetail from "./containers/ItemDetail";
 import AccountWrapper from "./State/index";

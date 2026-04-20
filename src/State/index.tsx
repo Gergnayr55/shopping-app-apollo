@@ -1,8 +1,8 @@
-import React from "react";
+import { ReactNode } from "react";
 import { AccountProvider } from "./AccountContext";
 
 type AccountWrapperProps = {
-  children: React.ReactNode;
+  children: ReactNode;
 };
 
 const AccountWrapper = ({ children }: AccountWrapperProps) => {

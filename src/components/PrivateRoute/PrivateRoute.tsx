@@ -1,9 +1,9 @@
-import React from "react";
+import { ReactNode } from "react";
 import { Navigate } from "react-router-dom";
 
 type PrivateRouteProps = {
   authed: boolean;
-  children: React.ReactNode;
+  children: ReactNode;
 };
 
 const PrivateRoute = ({ authed, children }: PrivateRouteProps) => {

@@ -1,4 +1,4 @@
-import React, { ReactElement, MouseEvent } from "react";
+import { ReactElement, MouseEvent } from "react";
 import { Box, Divider, Typography } from "@mui/material";
 import { Stack } from "@mui/system";
 import { moneyFormatter } from "../../utils";

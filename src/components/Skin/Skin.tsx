@@ -1,4 +1,4 @@
-import React, { ReactElement, SyntheticEvent } from "react";
+import { ReactElement, SyntheticEvent } from "react";
 import "./Skin.css";
 import { ObjectId } from "bson";
 import { Link } from "react-router-dom";

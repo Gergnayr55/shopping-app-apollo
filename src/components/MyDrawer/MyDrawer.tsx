@@ -1,4 +1,4 @@
-import React, { ReactElement, MouseEvent } from "react";
+import { ReactElement, MouseEvent } from "react";
 import { ObjectId } from "mongodb";
 import "./MyDrawer.css";
 import Drawer from "@mui/material/Drawer";

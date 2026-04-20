@@ -1,4 +1,4 @@
-import React, { ReactElement } from "react";
+import { ReactElement } from "react";
 import { Box, Typography, Stack } from "@mui/material";
 import Grid2 from "@mui/material/Grid2";
 import { useNavigate, useParams } from "react-router-dom";

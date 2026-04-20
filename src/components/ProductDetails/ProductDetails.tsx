@@ -1,4 +1,4 @@
-import React, { ReactElement } from "react";
+import { ReactElement } from "react";
 import AddToCartButton from "../AddToCartButton";
 import ItemSummary from "../ItemSummary";
 interface ProductDetailsProps {

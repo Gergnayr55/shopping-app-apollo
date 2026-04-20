@@ -1,4 +1,4 @@
-import React, { useContext, ReactElement, MouseEvent } from "react";
+import { useContext, ReactElement, MouseEvent, ChangeEvent } from "react";
 import "./Login.css";
 import { useMutation } from "@apollo/client";
 import { saveUser } from "../../utils";
@@ -10,7 +10,6 @@ import Button from "@mui/material/Button";
 import { Typography, InputAdornment } from "@mui/material";
 import { USER_LOGIN } from "../../apollo-client/mutations";
 
-// TODO: Convert to TS
 function Login(): ReactElement {
   const {
     email,
@@ -49,7 +48,7 @@ function Login(): ReactElement {
             onBlur: () => setFocusedInput(""),
             onFocus: () => setFocusedInput("email"),
           }}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+          onChange={(e: ChangeEvent<HTMLInputElement>) =>
             setEmail(e.target.value)
           }
           required={true}

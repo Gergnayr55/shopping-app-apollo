@@ -1,4 +1,4 @@
-import React, { ReactElement } from "react";
+import { ReactElement } from "react";
 import { Box, Typography } from "@mui/material";
 import { styled } from "@mui/system";
 import { Add, Remove } from "@mui/icons-material";

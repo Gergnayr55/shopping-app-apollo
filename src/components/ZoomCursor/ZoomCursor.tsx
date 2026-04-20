@@ -1,4 +1,4 @@
-import React, { ReactElement, useState } from "react";
+import { ReactElement, useState } from "react";
 import { Box } from "@mui/material";
 import Image from "../Image";
 interface ZoomCursorProps {

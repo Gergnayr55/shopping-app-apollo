@@ -1,4 +1,4 @@
-import React, { ReactElement, MouseEvent } from "react";
+import { ReactElement, MouseEvent } from "react";
 import { Radio } from "@mui/material";
 import { LocalShippingOutlined, CreditCardOutlined, ShoppingBagOutlined } from "@mui/icons-material";
 import { Box, Typography, Divider, Stack } from "@mui/material";
@@ -328,13 +328,12 @@ export default function Checkout(): ReactElement | null {
               style={{ width: "100%", alignSelf: "center", margin: "15px 0" }}
             />
             {userCartItems.map((itm: CartItem, idx: number) => (
-              <React.Fragment key={`${itm}-${idx}`}>
-                <MyCartItem
-                  item={itm}
-                  direction="row"
-                  justifyContent="space-between"
-                />
-              </React.Fragment>
+              <MyCartItem
+                key={`${itm}-${idx}`}
+                item={itm}
+                direction="row"
+                justifyContent="space-between"
+              />
             ))}
           </Box>
         </Stack>

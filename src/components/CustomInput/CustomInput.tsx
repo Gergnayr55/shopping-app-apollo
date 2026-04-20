@@ -1,4 +1,4 @@
-import React, { ReactElement, ChangeEvent } from "react";
+import { ReactElement, ChangeEvent, ReactNode } from "react";
 import TextField from "@mui/material/TextField";
 export type TextFieldProps = {
   label: string;
@@ -12,7 +12,7 @@ export type TextFieldProps = {
     onFocus: () => void;
     onBlur: () => void;
     onKeyDown?: () => void;
-    endAdornment?: React.ReactNode;
+    endAdornment?: ReactNode;
   };
 };
 

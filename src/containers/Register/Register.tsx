@@ -1,4 +1,4 @@
-import React, { useContext, MouseEvent, ReactElement } from "react";
+import { useContext, MouseEvent, ReactElement } from "react";
 import "./Register.css";
 import CustomButton from "../../components/CustomButton";
 import { useMutation } from "@apollo/client";

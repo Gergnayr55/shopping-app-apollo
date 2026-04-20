@@ -1,4 +1,4 @@
-import React, { CSSProperties, ReactElement, MouseEvent } from "react";
+import { CSSProperties, ReactElement, MouseEvent } from "react";
 import { styled } from "@mui/material/styles";
 import Button from "@mui/material/Button";
 export type ButtonProps = {

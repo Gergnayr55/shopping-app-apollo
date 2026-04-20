@@ -1,4 +1,4 @@
-import React, { ReactElement, MouseEvent, useEffect } from "react";
+import { ReactElement, MouseEvent, useEffect } from "react";
 import Grid2 from "@mui/material/Grid2";
 import { Box, Typography } from "@mui/material";
 import { CheckCircleOutline } from "@mui/icons-material";

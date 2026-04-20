@@ -1,23 +1,23 @@
-import React, { createContext, useRef, useState } from "react";
+import { createContext, useRef, useState, Dispatch, SetStateAction, RefObject, MouseEvent, ReactNode } from "react";
 import useContainsNode from "../custom-hooks/useContainsNode";
 
 type NameType = { firstName: string; lastName: string };
 
 type AccountContextType = {
   email: string;
-  setEmail: React.Dispatch<React.SetStateAction<string>>;
+  setEmail: Dispatch<SetStateAction<string>>;
   password: string;
-  setPassword: React.Dispatch<React.SetStateAction<string>>;
+  setPassword: Dispatch<SetStateAction<string>>;
   passwordVisible: boolean;
-  setPasswordVisible: React.Dispatch<React.SetStateAction<boolean>>;
+  setPasswordVisible: Dispatch<SetStateAction<boolean>>;
   name: NameType;
-  setName: React.Dispatch<React.SetStateAction<NameType>>;
+  setName: Dispatch<SetStateAction<NameType>>;
   verifyPassword: string;
-  setVerifyPassword: React.Dispatch<React.SetStateAction<string>>;
+  setVerifyPassword: Dispatch<SetStateAction<string>>;
   focusedInput: string;
-  setFocusedInput: React.Dispatch<React.SetStateAction<string>>;
-  focusRef: React.RefObject<HTMLElement>;
-  handleClick: (event: React.MouseEvent) => void;
+  setFocusedInput: Dispatch<SetStateAction<string>>;
+  focusRef: RefObject<HTMLElement>;
+  handleClick: (event: MouseEvent) => void;
 };
 
 const AccountContext = createContext<AccountContextType>({
@@ -38,7 +38,7 @@ const AccountContext = createContext<AccountContextType>({
 });
 const { Provider, Consumer } = AccountContext;
 
-const AccountProvider = ({ children }: { children: React.ReactNode }) => {
+const AccountProvider = ({ children }: { children: ReactNode }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordVisible, setPasswordVisible] = useState(false);
@@ -51,7 +51,7 @@ const AccountProvider = ({ children }: { children: React.ReactNode }) => {
     focusRef.current?.blur();
   });
 
-  const handleClick = (event: React.MouseEvent) => {
+  const handleClick = (event: MouseEvent) => {
     if (
       focusRef &&
       focusRef.current &&

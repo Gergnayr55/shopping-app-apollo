@@ -1,4 +1,4 @@
-import React, { ReactElement, MouseEvent } from "react";
+import { ReactElement, MouseEvent } from "react";
 import { useMutation } from "@apollo/client";
 import { deleteUser } from "../../utils";
 import { ShoppingCartOutlined } from "@mui/icons-material";

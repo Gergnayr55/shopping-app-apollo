@@ -1,11 +1,11 @@
-import React, { useContext, ReactElement, useMemo } from "react";
+import { useContext, ReactElement, useMemo } from "react";
 import { DashboardContext } from "../Dashboard/State/DashboardContext";
 import "./ItemDetail.css";
 import Toolbar from "../../components/Toolbar";
 import { Box, Typography, Divider, Stack } from "@mui/material";
 import Grid2 from "@mui/material/Grid2";
 import { useNavigate, useParams } from "react-router-dom";
-import { cartTotalItems, handleType, moneyFormatter } from "../../utils";
+import { cartTotalItems, moneyFormatter } from "../../utils";
 import MyDrawer, { CartItem } from "../../components/MyDrawer/MyDrawer";
 import BackButton from "../../components/BackButton";
 import Aside from "../../components/Aside";
@@ -16,10 +16,10 @@ import AddToCartButton from "../../components/AddToCartButton";
 import ItemSummary from "../../components/ItemSummary";
 import ZoomCursor from "../../components/ZoomCursor";
 import Skeleton from "@mui/material/Skeleton";
-import { TOGGLE_CART } from "../../apollo-client/mutations";
-import { useMutation, useQuery, useReactiveVar } from "@apollo/client";
-import { GET_ITEM, GET_CART_ITEMS } from "../../apollo-client/queries";
+import { useQuery, useReactiveVar } from "@apollo/client";
+import { GET_ITEM } from "../../apollo-client/queries";
 import { cartItemsVar } from "../../apollo-client/cache";
+import { useCartMutation } from "../../custom-hooks/useCartMutation";
 import { IdParam } from "../OrderDetail/OrderDetail";
 
 export type Item = {
@@ -52,7 +52,7 @@ function ItemDetail(): ReactElement {
 
   const userCartItems = useReactiveVar(cartItemsVar);
 
-  const [mutate, { error }] = useMutation(TOGGLE_CART);
+  const { handleCart } = useCartMutation();
   const selectedItm = userCartItems.find(
     (itm: CartItem) => itm._id.toString() === itemId
   );
@@ -61,74 +61,6 @@ function ItemDetail(): ReactElement {
       return `${selectedItm.quantity} added`;
     } else return "Add to Cart";
   }, [userCartItems, selectedItm]);
-
-  const handleCart = async (
-    cartItem: CartItem,
-    type: string
-  ): Promise<void> => {
-    try {
-      const result = await mutate({
-        variables: { cartItem, type },
-        update(cache, { data: { addOrRemoveFromCart } }) {
-          const qryResult: { myCartItems: CartItem[] } | null = cache.readQuery(
-            {
-              query: GET_CART_ITEMS,
-            }
-          );
-          const cartItems: Array<CartItem> =
-            (qryResult && qryResult.myCartItems && qryResult.myCartItems) || [];
-
-          const existingCartItemId = cache.identify({
-            __typename: "CartItem",
-            _id: cartItem._id,
-          });
-          const existingCartItem = cartItems?.find(
-            (item: CartItem) => item._id === cartItem._id
-          );
-
-          const newQty = handleType(type, existingCartItem?.quantity || 0);
-          if (!existingCartItem) {
-            const newCartItem = {
-              ...cartItem,
-              __typename: "CartItem",
-              quantity: 1,
-            };
-            cache.writeQuery({
-              query: GET_CART_ITEMS,
-              data: {
-                myCartItems: [...cartItems, newCartItem],
-              },
-            });
-
-            // Update the reactive variable with the new data
-            cartItemsVar([...cartItems, newCartItem]);
-          } else {
-            if (newQty === 0) {
-              // If the new quantity value is 0, remove the cartItem from the cache
-              cache.evict({ id: existingCartItemId });
-              cache.gc();
-            } else {
-              cache.modify({
-                id: existingCartItemId,
-                fields: {
-                  quantity(existingQuantity) {
-                    return handleType(type, existingQuantity);
-                  },
-                },
-              });
-            }
-            // read updated query from cache and save to reactive var
-            const newQry: { myCartItems: CartItem[] } = cache.readQuery({
-              query: GET_CART_ITEMS,
-            }) || { myCartItems: [] };
-            cartItemsVar(newQry.myCartItems);
-          }
-        },
-      });
-    } catch (e) {
-      console.error(`Failed to ${type} cart item`, e);
-    }
-  };
 
   const addItem = async (): Promise<void> => {
     try {
@@ -186,7 +118,6 @@ function ItemDetail(): ReactElement {
   const foundInCart = userCartItems.some(
     (itm: CartItem) => itm._id.toString() === itemId
   );
-  if (error) console.error(myError);
   if (itemLoading) return <Skeleton variant="rectangular" />;
   return (
     <Grid2

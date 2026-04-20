@@ -1,14 +1,13 @@
-import React, { ReactElement, MouseEvent } from "react";
+import { ReactElement, MouseEvent } from "react";
 import { Typography, Divider, Stack, Button } from "@mui/material";
-import { handleType, moneyFormatter } from "../../utils";
+import { moneyFormatter } from "../../utils";
 
 import { useNavigate } from "react-router-dom";
 import { DeleteOutline, Add, Remove } from "@mui/icons-material";
 import { CartItem } from "../MyDrawer/MyDrawer";
-import { useMutation, useReactiveVar } from "@apollo/client";
-import { TOGGLE_CART } from "../../apollo-client/mutations";
+import { useReactiveVar } from "@apollo/client";
 import { cartItemsVar } from "../../apollo-client/cache";
-import { GET_CART_ITEMS } from "../../apollo-client/queries";
+import { useCartMutation } from "../../custom-hooks/useCartMutation";
 
 type DirectionType = "row" | "column";
 interface MyCartItemProps {
@@ -31,67 +30,7 @@ export default function MyCartItem({
   };
   const userCartItems = useReactiveVar(cartItemsVar);
 
-  const [mutate, { loading, error }] = useMutation(TOGGLE_CART);
-
-  // TODO: Combine this with handleCart function as will now be the same
-  const handleMultiItm = async (itm: CartItem, type: string): Promise<void> => {
-    const result = await mutate({
-      variables: { cartItem: itm, type },
-      update(cache, { data: { addOrRemoveFromCart } }) {
-        const qryResult: { myCartItems: CartItem[] } | null = cache.readQuery({
-          query: GET_CART_ITEMS,
-        });
-        const cartItems: Array<CartItem> =
-          (qryResult && qryResult.myCartItems && qryResult.myCartItems) || [];
-        const existingCartItemId = cache.identify({
-          __typename: "CartItem",
-          _id: itm._id,
-        });
-        const existingCartItem = cartItems?.find(
-          (item: CartItem) => item._id === itm._id
-        );
-
-        const newQty = handleType(type, existingCartItem?.quantity || 0);
-        if (!existingCartItem) {
-          const newCartItem = {
-            ...itm,
-            __typename: "CartItem",
-            quantity: 1,
-          };
-          // Write new cartItem to the cache
-          cache.writeQuery({
-            query: GET_CART_ITEMS,
-            data: {
-              myCartItems: [...cartItems, newCartItem],
-            },
-          });
-
-          // Update the reactive variable with the new data
-          cartItemsVar([...cartItems, newCartItem]);
-        } else {
-          if (newQty === 0) {
-            // If the new quantity value is 0, remove the cartItem from the cache
-            cache.evict({ id: existingCartItemId });
-          } else {
-            cache.modify({
-              id: existingCartItemId,
-              fields: {
-                quantity(existingQuantity) {
-                  return handleType(type, existingQuantity);
-                },
-              },
-            });
-          }
-          // read updated query from cache and save to reactive var
-          const newQry: { myCartItems: CartItem[] } = cache.readQuery({
-            query: GET_CART_ITEMS,
-          }) || { myCartItems: [] };
-          cartItemsVar(newQry.myCartItems);
-        }
-        cache.gc();
-      },
-    });
-  };
+  const { handleCart, loading, error } = useCartMutation();
   return (
     <Stack
       spacing={10}
@@ -185,7 +124,7 @@ export default function MyCartItem({
             variant="text"
             color="inherit"
             startIcon={<DeleteOutline />}
-            onClick={async () => await handleMultiItm(item, "REMOVE")}
+            onClick={async () => await handleCart(item, "REMOVE")}
             sx={{
               textTransform: "capitalize",
               display: "flex",
@@ -201,14 +140,14 @@ export default function MyCartItem({
           </Button>
           <Remove
             sx={iconStyle}
-            onClick={async () => await handleMultiItm(item, "MINUS")}
+            onClick={async () => await handleCart(item, "MINUS")}
           />
           <Typography sx={{ fontSize: { xs: "12px", md: "inherit" } }}>
             {item.quantity}
           </Typography>
           <Add
             sx={iconStyle}
-            onClick={async () => await handleMultiItm(item, "ADD")}
+            onClick={async () => await handleCart(item, "ADD")}
           />
         </Stack>
       )}

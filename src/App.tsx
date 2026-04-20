@@ -1,25 +1,27 @@
-import { useEffect, useState } from "react";
-import Dashboard from "./containers/Dashboard";
-import ItemDetail from "./containers/ItemDetail";
+import { useEffect, useState, lazy, Suspense } from "react";
 import AccountWrapper from "./State/index";
-import Login from "./containers/Login";
-import Register from "./containers/Register";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { getUser, deleteUser } from "./utils";
 import PrivateRoute from "./components/PrivateRoute";
+import LoadingFallback from "./components/LoadingFallback";
 import { DashboardProvider } from "./containers/Dashboard/State/DashboardContext";
 import { ApolloClient, ApolloProvider, from } from "@apollo/client";
 import { NormalizedCacheObject } from "@apollo/client/cache/inmemory/types";
 import { onError } from "@apollo/client/link/error";
 import { HttpLink } from "@apollo/client";
-import Checkout from "./containers/Checkout";
-import MyCart from "./containers/MyCart";
-import OrderSuccess from "./containers/OrderSuccess";
-import Orders from "./containers/Orders";
-import OrderDetail from "./containers/OrderDetail";
 import { typeDefs } from "./apollo-client/typeDefs";
 import { cache } from "./apollo-client/cache";
 import { persistor } from "./apollo-client/persistor";
+
+const Dashboard = lazy(() => import("./containers/Dashboard"));
+const ItemDetail = lazy(() => import("./containers/ItemDetail"));
+const Login = lazy(() => import("./containers/Login"));
+const Register = lazy(() => import("./containers/Register"));
+const Checkout = lazy(() => import("./containers/Checkout"));
+const MyCart = lazy(() => import("./containers/MyCart"));
+const OrderSuccess = lazy(() => import("./containers/OrderSuccess"));
+const Orders = lazy(() => import("./containers/Orders"));
+const OrderDetail = lazy(() => import("./containers/OrderDetail"));
 
 const errorLink = onError(({ graphQLErrors }) => {
   if (graphQLErrors?.some(e => e.extensions?.code === 'UNAUTHENTICATED')) {
@@ -59,66 +61,68 @@ const App = () => {
       <Router>
         <AccountWrapper>
           <DashboardProvider>
-            <Routes>
-              <Route path="/" element={<Login />} />
-              <Route path="/register" element={<Register />} />
-              <Route
-                path="/home"
-                element={
-                  <PrivateRoute authed={isAuthed}>
-                    <Dashboard />
-                  </PrivateRoute>
-                }
-              />
-              <Route
-                path="/orders/:_id"
-                element={
-                  <PrivateRoute authed={isAuthed}>
-                    <OrderDetail />
-                  </PrivateRoute>
-                }
-              />
-              <Route
-                path="/orders"
-                element={
-                  <PrivateRoute authed={isAuthed}>
-                    <Orders />
-                  </PrivateRoute>
-                }
-              />
-              <Route
-                path="/skin/:_id"
-                element={
-                  <PrivateRoute authed={isAuthed}>
-                    <ItemDetail />
-                  </PrivateRoute>
-                }
-              />
-              <Route
-                path="/my-cart"
-                element={
-                  <PrivateRoute authed={isAuthed}>
-                    <MyCart />
-                  </PrivateRoute>
-                }
-              />
-              <Route
-                path="/checkout"
-                element={
-                  <PrivateRoute authed={isAuthed}>
-                    <Checkout />
-                  </PrivateRoute>
-                }
-              />
-              <Route
-                path="/order-success/:id"
-                element={
-                  <PrivateRoute authed={isAuthed}>
-                    <OrderSuccess />
-                  </PrivateRoute>
-                }
-              />
-            </Routes>
+            <Suspense fallback={<LoadingFallback />}>
+              <Routes>
+                <Route path="/" element={<Login />} />
+                <Route path="/register" element={<Register />} />
+                <Route
+                  path="/home"
+                  element={
+                    <PrivateRoute authed={isAuthed}>
+                      <Dashboard />
+                    </PrivateRoute>
+                  }
+                />
+                <Route
+                  path="/orders/:_id"
+                  element={
+                    <PrivateRoute authed={isAuthed}>
+                      <OrderDetail />
+                    </PrivateRoute>
+                  }
+                />
+                <Route
+                  path="/orders"
+                  element={
+                    <PrivateRoute authed={isAuthed}>
+                      <Orders />
+                    </PrivateRoute>
+                  }
+                />
+                <Route
+                  path="/skin/:_id"
+                  element={
+                    <PrivateRoute authed={isAuthed}>
+                      <ItemDetail />
+                    </PrivateRoute>
+                  }
+                />
+                <Route
+                  path="/my-cart"
+                  element={
+                    <PrivateRoute authed={isAuthed}>
+                      <MyCart />
+                    </PrivateRoute>
+                  }
+                />
+                <Route
+                  path="/checkout"
+                  element={
+                    <PrivateRoute authed={isAuthed}>
+                      <Checkout />
+                    </PrivateRoute>
+                  }
+                />
+                <Route
+                  path="/order-success/:id"
+                  element={
+                    <PrivateRoute authed={isAuthed}>
+                      <OrderSuccess />
+                    </PrivateRoute>
+                  }
+                />
+              </Routes>
+            </Suspense>
           </DashboardProvider>
         </AccountWrapper>
       </Router>

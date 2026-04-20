@@ -1,9 +1,8 @@
-import React, { ReactElement, useEffect, useRef, MouseEvent } from "react";
+import React, { ReactElement, MouseEvent } from "react";
 import { ObjectId } from "mongodb";
 import "./MyDrawer.css";
 import Drawer from "@mui/material/Drawer";
 import { Box, Typography } from "@mui/material";
-import { useLocation } from "react-router-dom";
 import MyCartItem from "../MyCartItem";
 import CartOverview from "../CartOverview";
 import { useReactiveVar } from "@apollo/client";
@@ -44,16 +43,7 @@ function MyDrawer({
   onClose,
   handleCheckout,
 }: DrawerProps): ReactElement {
-  const location = useLocation();
-  const prevLocationRef = useRef(location);
   const userCartItems = useReactiveVar(cartItemsVar);
-
-  useEffect(() => {
-    if (prevLocationRef.current !== location && visible) {
-      onClose();
-    }
-    prevLocationRef.current = location;
-  }, [location, onClose, visible]);
 
   return (
     <Drawer

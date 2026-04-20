@@ -56,9 +56,6 @@ function Toolbar({ viewCartDrawer, total = 0 }: ToolbarProps): ReactElement {
             showZero
             badgeContent={total}
             color="info"
-            sx={{
-              "&.MuiBadge-root": {},
-            }}
           >
             <ShoppingCartOutlined htmlColor="#fff" fontSize="large" />
           </Badge>

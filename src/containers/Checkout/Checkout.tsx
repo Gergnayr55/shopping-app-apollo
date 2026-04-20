@@ -112,8 +112,6 @@ export default function Checkout(): ReactElement | null {
       });
 
       if (data && data.handleOrder) {
-        console.log("Successfully sent Order");
-
         navigate(`/order-success/${data.handleOrder.id}`);
       }
     } catch (e) {

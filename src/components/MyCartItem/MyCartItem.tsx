@@ -30,8 +30,6 @@ export default function MyCartItem({
     "&:hover": { cursor: "pointer" },
   };
   const userCartItems = useReactiveVar(cartItemsVar);
-  console.log("userCartItems");
-  console.log(userCartItems);
 
   const [mutate, { loading, error }] = useMutation(TOGGLE_CART);
 

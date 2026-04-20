@@ -62,9 +62,6 @@ function ItemDetail(): ReactElement {
     } else return "Add to Cart";
   }, [userCartItems, selectedItm]);
 
-  console.log("userCartItems");
-  console.log(userCartItems);
-
   const handleCart = async (
     cartItem: CartItem,
     type: string
@@ -129,7 +126,7 @@ function ItemDetail(): ReactElement {
         },
       });
     } catch (e) {
-      console.log(`Failed to ${type} cart item`, e);
+      console.error(`Failed to ${type} cart item`, e);
     }
   };
 
@@ -149,7 +146,7 @@ function ItemDetail(): ReactElement {
         await handleCart(itmCopy, "ADD");
       }
     } catch (e) {
-      console.log("Failed to add item to cart", e);
+      console.error("Failed to add item to cart", e);
     }
   };
 
@@ -163,7 +160,7 @@ function ItemDetail(): ReactElement {
         await handleCart(itmCopy, "MINUS");
       }
     } catch (e) {
-      console.log("Failed to remove item from cart", e);
+      console.error("Failed to remove item from cart", e);
     }
   };
 
@@ -180,7 +177,7 @@ function ItemDetail(): ReactElement {
         return undefined;
       }
     } catch (e) {
-      console.log("Failed to add initial item to cart", e);
+      console.error("Failed to add initial item to cart", e);
     }
   };
 

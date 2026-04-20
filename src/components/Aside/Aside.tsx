@@ -1,5 +1,5 @@
 import { CSSProperties, FC } from "react";
-import { Stack } from "@mui/system";
+import Stack from "@mui/material/Stack";
 interface AsideProps {
   children: JSX.Element;
   height: string;

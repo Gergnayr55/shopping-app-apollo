@@ -18,10 +18,8 @@ interface IDashboardContext {
 
 const DashboardContext = createContext<IDashboardContext>({
   menuOpen: false,
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
   setMenuOpen: () => {},
   drawerOpen: false,
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
   setDrawerOpen: () => {},
 });
 const { Provider, Consumer } = DashboardContext;

@@ -3,7 +3,8 @@ import "./Register.css";
 import CustomButton from "../../components/CustomButton";
 import { useMutation } from "@apollo/client";
 import { AccountContext } from "../../State/AccountContext";
-import { Box, TextField, Button, Stack } from "@mui/material";
+import { Box, TextField, Button } from "@mui/material";
+import Stack from "@mui/material/Stack";
 import { REGISTRATION } from "../../apollo-client/mutations";
 const Register = (): ReactElement => {
   const {

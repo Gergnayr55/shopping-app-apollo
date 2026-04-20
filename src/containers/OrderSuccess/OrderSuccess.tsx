@@ -4,7 +4,7 @@ import { Box, Typography } from "@mui/material";
 import { CheckCircleOutline } from "@mui/icons-material";
 import { cartTotalItems, calculatedCartTotal } from "../../utils";
 import { useNavigate, useParams } from "react-router-dom";
-import { Stack } from "@mui/system";
+import Stack from "@mui/material/Stack";
 import Aside from "../../components/Aside";
 import CartOverview from "../../components/CartOverview";
 import VisaImg from "../../icons/visa-sm.png";

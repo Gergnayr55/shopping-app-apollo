@@ -4,7 +4,7 @@ import Skeleton from "@mui/material/Skeleton";
 import { Box, Divider, Typography } from "@mui/material";
 import { handleDateFormat, moneyFormatter } from "../../utils";
 import { useNavigate } from "react-router-dom";
-import { Stack } from "@mui/system";
+import Stack from "@mui/material/Stack";
 import { useQuery } from "@apollo/client";
 import { CartItem } from "../../components/MyDrawer/MyDrawer";
 import BackButton from "../../components/BackButton";

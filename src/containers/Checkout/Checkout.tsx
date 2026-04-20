@@ -1,7 +1,8 @@
 import { ReactElement, MouseEvent } from "react";
 import { Radio } from "@mui/material";
 import { LocalShippingOutlined, CreditCardOutlined, ShoppingBagOutlined } from "@mui/icons-material";
-import { Box, Typography, Divider, Stack } from "@mui/material";
+import { Box, Typography, Divider } from "@mui/material";
+import Stack from "@mui/material/Stack";
 import Grid2 from "@mui/material/Grid2";
 import { useNavigate } from "react-router-dom";
 import { calculatedCartTotal, handleTotalItems } from "../../utils";

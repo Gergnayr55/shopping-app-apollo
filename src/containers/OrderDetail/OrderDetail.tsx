@@ -1,5 +1,6 @@
 import { ReactElement } from "react";
-import { Box, Typography, Stack } from "@mui/material";
+import { Box, Typography } from "@mui/material";
+import Stack from "@mui/material/Stack";
 import Grid2 from "@mui/material/Grid2";
 import { useNavigate, useParams } from "react-router-dom";
 import { handleDateFormat, moneyFormatter } from "../../utils";

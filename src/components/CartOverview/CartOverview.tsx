@@ -1,6 +1,6 @@
 import { ReactElement, MouseEvent } from "react";
 import { Box, Divider, Typography } from "@mui/material";
-import { Stack } from "@mui/system";
+import Stack from "@mui/material/Stack";
 import { moneyFormatter } from "../../utils";
 import CustomButton from "../CustomButton";
 import { useLocation } from "react-router-dom";

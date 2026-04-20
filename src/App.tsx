@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Dashboard from "./containers/Dashboard";
 import ItemDetail from "./containers/ItemDetail";
 import AccountWrapper from "./State/index";
@@ -9,6 +9,7 @@ import { getUser, deleteUser } from "./utils";
 import PrivateRoute from "./components/PrivateRoute";
 import { DashboardProvider } from "./containers/Dashboard/State/DashboardContext";
 import { ApolloClient, ApolloProvider, from } from "@apollo/client";
+import { NormalizedCacheObject } from "@apollo/client/cache/inmemory/types";
 import { onError } from "@apollo/client/link/error";
 import { HttpLink } from "@apollo/client";
 import Checkout from "./containers/Checkout";
@@ -18,7 +19,7 @@ import Orders from "./containers/Orders";
 import OrderDetail from "./containers/OrderDetail";
 import { typeDefs } from "./apollo-client/typeDefs";
 import { cache } from "./apollo-client/cache";
-import { persistCache, LocalStorageWrapper } from "apollo3-cache-persist";
+import { persistor } from "./apollo-client/persistor";
 
 const errorLink = onError(({ graphQLErrors }) => {
   if (graphQLErrors?.some(e => e.extensions?.code === 'UNAUTHENTICATED')) {
@@ -35,23 +36,23 @@ const httpLink = new HttpLink({
 const App = () => {
   const auth = getUser();
   const isAuthed = auth === null ? false : true;
+  const [client, setClient] = useState<ApolloClient<NormalizedCacheObject> | null>(null);
 
   useEffect(() => {
     async function init() {
-      await persistCache({
-        cache,
-        storage: new LocalStorageWrapper(window.localStorage),
-      });
+      await persistor.restore();
+      setClient(
+        new ApolloClient({
+          cache,
+          link: from([errorLink, httpLink]),
+          typeDefs,
+        })
+      );
     }
-
     init().catch(console.error);
   }, []);
 
-  const client = new ApolloClient({
-    cache,
-    link: from([errorLink, httpLink]),
-    typeDefs,
-  });
+  if (!client) return null;
 
   return (
     <ApolloProvider client={client}>

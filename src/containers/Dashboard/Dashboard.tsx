@@ -5,7 +5,6 @@ import Skin from "../../components/Skin";
 import MyDrawer from "../../components/MyDrawer";
 import { useNavigate } from "react-router-dom";
 import { DashboardContext } from "./State/DashboardContext";
-import "./Dashboard.css";
 import Grid2 from "@mui/material/Grid2";
 import Skeleton from "@mui/material/Skeleton";
 import { cartItemsVar } from "../../apollo-client/cache";

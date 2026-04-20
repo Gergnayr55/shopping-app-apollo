@@ -12,6 +12,9 @@ export const cache: InMemoryCache = new InMemoryCache({
           read(existing) {
             return existing;
           },
+          merge(existing, incoming) {
+            return incoming;
+          },
         },
         getOrders: {
           read(

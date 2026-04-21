@@ -129,10 +129,10 @@ export default function List({ arr, onLogout }: ListProps): ReactElement | null 
             <Grow
               {...TransitionProps}
               style={{
-                marginTop: "20px",
                 transformOrigin:
                   placement === "bottom-start" ? "left top" : "left bottom",
               }}
+              sx={{ marginTop: "20px" }}
             >
               <Paper>
                 <ClickAwayListener onClickAway={handleClose}>

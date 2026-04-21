@@ -69,7 +69,7 @@ function MyDrawer({
         <Typography
           variant="body2"
           align="center"
-          style={{
+          sx={{
             height: "100%",
             marginTop: "40%",
           }}

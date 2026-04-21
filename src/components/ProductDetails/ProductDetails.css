@@ -1,0 +1,10 @@
+.product-details-divider-wrap {
+  margin: 16px 0;
+}
+
+.product-details-divider-wrap hr {
+  border: 0;
+  border-bottom: 0.0625rem solid #f1f1f2;
+  margin: 0;
+  width: 100%;
+}

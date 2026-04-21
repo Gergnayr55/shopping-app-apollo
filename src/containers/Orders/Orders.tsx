@@ -56,7 +56,7 @@ export default function Orders(): ReactElement {
         <Stack direction="column" alignItems="center" m={"0 2.5% 2.5%"} sx={{}}>
           <Box
             sx={{
-              backgroundColor: "#0071dc",
+              backgroundColor: "primary.main",
               width: "100vw",
               minWidth: "375px",
               alignItems: "center",
@@ -136,7 +136,7 @@ export default function Orders(): ReactElement {
           ) : (
             data.getOrders.map((itm: OrderItem, idx: number) => (
               <>
-                <Divider key={`${itm}-${idx}`} variant="middle" style={{ margin: "0" }} />
+                <Divider key={`${itm}-${idx}`} variant="middle" sx={{ margin: "0" }} />
                 <Stack
                   direction="row"
                   alignItems="center"

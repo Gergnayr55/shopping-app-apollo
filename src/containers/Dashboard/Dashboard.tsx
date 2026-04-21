@@ -43,12 +43,12 @@ const Dashboard = (): ReactElement => {
           alignItems="center"
           alignContent="center"
           wrap="nowrap"
-          style={{ margin: "10rem 0 5rem" }}
+          sx={{ margin: "10rem 0 5rem" }}
         >
           <Grid2
             direction="column"
             size={{ xs: 12, sm: 12, md: 12 }}
-            style={{ padding: 12, width: "calc(100vw - 25%)" }}
+            sx={{ padding: 12, width: "calc(100vw - 25%)" }}
           >
             {[0, 0, 0, 0, 0].map((itm, idx) => (
               <Skeleton key={`${itm}-${idx}`} animation="pulse" height={"450px"} />
@@ -77,7 +77,7 @@ const Dashboard = (): ReactElement => {
         alignItems="center"
         alignContent="center"
         wrap="nowrap"
-        style={{ margin: "10rem 0 5rem" }}
+        sx={{ margin: "10rem 0 5rem" }}
       >
         {data &&
           data.getSkins?.length > 0 &&
@@ -86,7 +86,7 @@ const Dashboard = (): ReactElement => {
               key={`${itm}-${idx}`}
               direction="column"
               size={{ xs: 12, sm: 12, md: 12 }}
-              style={{ padding: 12, width: "calc(100vw - 25%)" }}
+              sx={{ padding: 12, width: "calc(100vw - 25%)" }}
             >
               <Skin
                 id={itm._id}

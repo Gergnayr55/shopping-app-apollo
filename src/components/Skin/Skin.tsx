@@ -1,5 +1,4 @@
 import { ReactElement, SyntheticEvent } from "react";
-import "./Skin.css";
 import { Link } from "react-router-dom";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
@@ -67,9 +66,6 @@ function Skin({
           justifySelf: "center",
           borderRadius: 4,
           border: "1.5px solid #f1f1f2",
-          boxShadow: "none",
-          // boxShadow:
-          //   "0 3px 6px -4px rgba(0, 0, 0, 16%), 0 3px 6px rgba(0, 0, 0, 23%)",
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
@@ -192,10 +188,10 @@ function Skin({
             <Typography
               variant="body2"
               align="left"
-              style={{ margin: "5px 0 0 3px" }}
               sx={{
                 width: "100%",
                 fontSize: { xs: "12px", md: "inherit" },
+                margin: "5px 0 0 3px",
               }}
             >
               {count !== null ? `${count} total reviews` : "No reviews"}

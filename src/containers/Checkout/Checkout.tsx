@@ -1,4 +1,5 @@
 import { ReactElement, MouseEvent } from "react";
+import "./Checkout.css";
 import Radio from "@mui/material/Radio";
 import { LocalShippingOutlined, CreditCardOutlined, ShoppingBagOutlined } from "@mui/icons-material";
 import Box from "@mui/material/Box";
@@ -143,7 +144,7 @@ export default function Checkout(): ReactElement | null {
       >
         <Box
           sx={{
-            backgroundColor: "#0071dc",
+            backgroundColor: "primary.main",
             width: "100vw",
             alignItems: "center",
             display: "flex",
@@ -170,7 +171,6 @@ export default function Checkout(): ReactElement | null {
         direction="row"
         alignItems="flex-start"
         justifyContent="space-around"
-        sx={{}}
       >
         <Stack
           spacing={4}
@@ -205,7 +205,6 @@ export default function Checkout(): ReactElement | null {
             </Stack>
             <Divider
               variant="middle"
-              style={{ width: "100%", alignSelf: "center", margin: "15px 0" }}
             />
             <Box
               sx={{
@@ -261,7 +260,6 @@ export default function Checkout(): ReactElement | null {
             </Stack>
             <Divider
               variant="middle"
-              style={{ width: "100%", alignSelf: "center", margin: "15px 0" }}
             />
             <Box
               sx={{
@@ -284,10 +282,7 @@ export default function Checkout(): ReactElement | null {
               <img
                 src={VisaImg}
                 alt="card"
-                style={{
-                  width: "auto",
-                  height: "40px",
-                }}
+                className="checkout-card-img"
               />
               <Typography
                 variant="body2"
@@ -295,7 +290,6 @@ export default function Checkout(): ReactElement | null {
                 sx={{
                   marginLeft: "10px",
                   textTransform: "capitalize",
-                  fontSize: { xs: "12px", md: "inherit" },
                 }}
               >
                 Ending in 0101
@@ -328,7 +322,6 @@ export default function Checkout(): ReactElement | null {
             </Stack>
             <Divider
               variant="middle"
-              style={{ width: "100%", alignSelf: "center", margin: "15px 0" }}
             />
             {userCartItems.map((itm: CartItem, idx: number) => (
               <MyCartItem
@@ -349,7 +342,7 @@ export default function Checkout(): ReactElement | null {
           <Aside
             height="100%"
             minWidth={largeDevice ? "100%" : "150px"}
-            customStyle={{ margin: "10px 0 0 5%" }}
+            className="checkout-aside"
           >
             <CartOverview
               totalCart={totalOrder}

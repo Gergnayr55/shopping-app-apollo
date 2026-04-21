@@ -192,7 +192,6 @@ function ItemDetail(): ReactElement {
             </Typography>
             <Divider
               variant="middle"
-              style={{ width: "100%", margin: "15px 0" }}
             />
             <Box sx={{ width: "calc(100% - 100px)" }}>
               <Typography

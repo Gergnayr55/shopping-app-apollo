@@ -9,27 +9,28 @@ export type ButtonProps = {
   text?: string;
 };
 
-const MyCustomButton = styled(Button)`
-
-  &.MuiButton-root {
-    background-color: #0071dc;
-    border: none;
-    outline: none;
-    border-radius: 22px;
-    color: white;
-    fontSize: 14px;
-    min-width: 60px;
-    height: 2.5rem;
-    width: 100%;
-    transition: background-color 0.3s ease;
-  }
-  :hover {
-    background-color: #004f9a;
-  }
-  :disabled: {
-    cursor: default;
-    background-color: darkgray;
-`;
+const MyCustomButton = styled(Button)(({ theme }) => ({
+  "&.MuiButton-root": {
+    backgroundColor: theme.palette.primary.main,
+    border: "none",
+    outline: "none",
+    borderRadius: "22px",
+    color: "white",
+    fontSize: "14px",
+    fontWeight: 600,
+    minWidth: "60px",
+    height: "2.5rem",
+    width: "100%",
+    transition: "background-color 0.3s ease",
+  },
+  ":hover": {
+    backgroundColor: theme.palette.primary.dark,
+  },
+  ":disabled": {
+    cursor: "default",
+    backgroundColor: "darkgray",
+  },
+}));
 
 function CustomButton({
   className,

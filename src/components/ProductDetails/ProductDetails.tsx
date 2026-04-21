@@ -1,4 +1,5 @@
 import { ReactElement } from "react";
+import "./ProductDetails.css";
 import AddToCartButton from "../AddToCartButton";
 import ItemSummary from "../ItemSummary";
 interface ProductDetailsProps {
@@ -42,15 +43,8 @@ export default function ProductDetails({
         handleRemoveItem={handleRemoveItem}
         handleAddItem={handleAddItem}
       />
-      <div style={{ margin: "16px 0 16px 0" }}>
-        <hr
-          style={{
-            border: 0,
-            borderBottom: "0.0625rem solid #f1f1f2",
-            margin: 0,
-            width: "100%",
-          }}
-        />
+      <div className="product-details-divider-wrap">
+        <hr />
       </div>
     </>
   );

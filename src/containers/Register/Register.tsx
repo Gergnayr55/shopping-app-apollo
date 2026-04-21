@@ -1,5 +1,4 @@
 import { useContext, MouseEvent, ReactElement } from "react";
-import "./Register.css";
 import CustomButton from "../../components/CustomButton";
 import { useMutation } from "@apollo/client";
 import { AccountContext } from "../../State/AccountContext";
@@ -102,7 +101,7 @@ const Register = (): ReactElement => {
           />
 
           <Button
-            style={{ position: "absolute", bottom: 15, fontSize: 11, right: 0 }}
+            sx={{ position: "absolute", bottom: 15, fontSize: 11, right: 0 }}
             onClick={() => {
               setPasswordVisible(!passwordVisible);
             }}
@@ -124,7 +123,7 @@ const Register = (): ReactElement => {
 
           <Button
             variant="text"
-            style={{ position: "absolute", bottom: 15, fontSize: 11, right: 0 }}
+            sx={{ position: "absolute", bottom: 15, fontSize: 11, right: 0 }}
             onClick={() => {
               setFocusedInput("form-input-verify");
               setPasswordVisible(!passwordVisible);

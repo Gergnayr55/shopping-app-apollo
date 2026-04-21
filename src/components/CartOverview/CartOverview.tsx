@@ -47,7 +47,6 @@ export default function CartOverview({
         <Box sx={{ padding: "5%" }}>
           <CustomButton
             onClick={handleCheckout}
-            style={{ fontSize: "11px" }}
             text={btnText}
           />
         </Box>
@@ -59,12 +58,12 @@ export default function CartOverview({
             justifyContent: "space-between",
           }}
         >
-          <Typography variant="body2" style={{ paddingLeft: 5 }}>
+          <Typography variant="body2" sx={{ paddingLeft: "5px" }}>
             <strong>Subtotal</strong>
             {` (${totalItems} ${totalItems > 1 ? "Items" : "Item"}): `}
           </Typography>
 
-          <Typography variant="body2" align="right" style={{ display: "flex" }}>
+          <Typography variant="body2" align="right" sx={{ display: "flex" }}>
             {moneyFormatter.format(totalCart)}
           </Typography>
         </Box>
@@ -75,17 +74,10 @@ export default function CartOverview({
             justifyContent: "space-between",
           }}
         >
-          <Typography
-            variant="body2"
-            style={{ paddingLeft: 5, fontSize: "13px" }}
-          >
+          <Typography variant="body2" sx={{ paddingLeft: "5px" }}>
             Shipping {`${totalCart < 35 ? "(below $35 order minimum)" : ""}`}
           </Typography>
-          <Typography
-            variant="body2"
-            align="right"
-            style={{ display: "flex", fontSize: "13px" }}
-          >
+          <Typography variant="body2" align="right" sx={{ display: "flex" }}>
             {totalCart < 35 ? "$6.99" : "Free"}
           </Typography>
         </Box>
@@ -96,26 +88,16 @@ export default function CartOverview({
             justifyContent: "space-between",
           }}
         >
-          <Typography
-            variant="body2"
-            style={{ paddingLeft: 5, fontWeight: "bold" }}
-          >
+          <Typography variant="body2" sx={{ paddingLeft: "5px", fontWeight: "bold" }}>
             {btnText === "Checkout order" ? "Estimated taxes" : "Tax"}
           </Typography>
-          <Typography
-            variant="body2"
-            align="right"
-            style={{ display: "flex", fontSize: "13px" }}
-          >
+          <Typography variant="body2" align="right" sx={{ display: "flex" }}>
             {isCheckout
               ? moneyFormatter.format(Math.round(totalCart * 0.0735))
               : "See at checkout"}
           </Typography>
         </Box>
-        <Divider
-          variant="middle"
-          style={{ width: "95%", alignSelf: "center", margin: "15px 0" }}
-        />
+        <Divider variant="middle" sx={{ width: "95%" }} />
         {isCheckout && (
           <>
             <Box
@@ -127,11 +109,7 @@ export default function CartOverview({
             >
               <Typography
                 variant="body2"
-                style={{
-                  paddingLeft: 5,
-                  fontWeight: "bold",
-                  textTransform: "capitalize",
-                }}
+                sx={{ paddingLeft: "5px", fontWeight: "bold", textTransform: "capitalize" }}
               >
                 {btnText === "Checkout order" ? "Estimated" : ""} total
               </Typography>
@@ -139,7 +117,7 @@ export default function CartOverview({
                 variant="body2"
                 align="right"
                 mb="15px"
-                style={{ display: "flex", fontSize: "13px" }}
+                sx={{ display: "flex" }}
               >
                 {moneyFormatter.format(
                   Math.round(totalCart * 0.0735) + totalCart

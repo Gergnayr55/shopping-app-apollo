@@ -53,7 +53,7 @@ export default function OrderDetail(): ReactElement {
       <Stack direction="column" alignItems="center" m={"0 2.5% 2.5%"}>
         <Box
           sx={{
-            backgroundColor: "#0071dc",
+            backgroundColor: "primary.main",
             width: "100vw",
             alignItems: "center",
             display: "flex",

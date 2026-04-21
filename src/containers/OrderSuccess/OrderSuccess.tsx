@@ -1,4 +1,5 @@
 import { ReactElement, MouseEvent, useEffect } from "react";
+import "./OrderSuccess.css";
 import Grid2 from "@mui/material/Grid2";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
@@ -42,7 +43,7 @@ export default function OrderSuccess(): ReactElement | null {
       <Stack direction="column" alignItems="center" m={"0 2.5% 2.5%"}>
         <Box
           sx={{
-            backgroundColor: "#0071dc",
+            backgroundColor: "primary.main",
             width: "100vw",
             alignItems: "center",
             display: "flex",
@@ -173,10 +174,7 @@ export default function OrderSuccess(): ReactElement | null {
                     <img
                       src={VisaImg}
                       alt="card"
-                      style={{
-                        width: "auto",
-                        height: "40px",
-                      }}
+                      className="order-success-card-img"
                     />
                     <Typography
                       variant="body2"

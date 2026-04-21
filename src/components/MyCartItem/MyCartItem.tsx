@@ -1,4 +1,5 @@
 import { ReactElement, MouseEvent } from "react";
+import "./MyCartItem.css";
 import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
 import Button from "@mui/material/Button";
@@ -72,12 +73,7 @@ export default function MyCartItem({
         }}
       >
         <img
-          style={{
-            width: "65px",
-            height: "65px",
-            mixBlendMode: "darken",
-            imageRendering: "-webkit-optimize-contrast",
-          }}
+          className="cart-item-img"
           src={item.image}
           alt="itm-img"
         />
@@ -156,11 +152,7 @@ export default function MyCartItem({
       )}
       <Divider
         variant="middle"
-        style={{
-          width: "79%",
-          alignSelf: "center",
-          margin: "15px 0",
-        }}
+        sx={{ width: "79%" }}
       />
     </Stack>
   );

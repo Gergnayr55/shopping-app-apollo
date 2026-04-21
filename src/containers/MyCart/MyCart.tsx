@@ -3,6 +3,7 @@ import CustomButton from "../../components/CustomButton";
 import Typography from "@mui/material/Typography";
 import Stack from "@mui/material/Stack";
 import Grid2 from "@mui/material/Grid2";
+import Box from "@mui/material/Box";
 import { useNavigate } from "react-router-dom";
 import { CartItem } from "../../components/MyDrawer/MyDrawer";
 import BackButton from "../../components/BackButton";
@@ -31,11 +32,12 @@ export default function MyCart(): ReactElement {
         >
           My Cart
         </Typography>
-        <CustomButton
-          onClick={() => navigate("/checkout")}
-          style={{ width: "250px" }}
-          text="Go to checkout"
-        />
+        <Box sx={{ width: "250px" }}>
+          <CustomButton
+            onClick={() => navigate("/checkout")}
+            text="Go to checkout"
+          />
+        </Box>
       </Stack>
       <Stack
         spacing={1}

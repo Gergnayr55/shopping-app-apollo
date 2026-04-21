@@ -1,0 +1,6 @@
+.cart-item-img {
+  width: 65px;
+  height: 65px;
+  mix-blend-mode: darken;
+  image-rendering: -webkit-optimize-contrast;
+}

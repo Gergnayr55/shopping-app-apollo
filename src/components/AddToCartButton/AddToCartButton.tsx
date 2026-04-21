@@ -76,7 +76,7 @@ export default function AddToCartButton({
 
             "&:hover": {
               cursor: "pointer",
-              backgroundColor: "#1565c0",
+              backgroundColor: "primary.dark",
               borderRadius: "22px",
             },
           }}

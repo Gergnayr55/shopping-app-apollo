@@ -1,4 +1,6 @@
 import { useEffect, useState, lazy, Suspense } from "react";
+import { ThemeProvider } from "@mui/material/styles";
+import theme from "./theme";
 import AccountWrapper from "./State/index";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { getUser, deleteUser } from "./utils";
@@ -62,6 +64,7 @@ const App = () => {
   if (!client) return null;
 
   return (
+    <ThemeProvider theme={theme}>
     <ApolloProvider client={client}>
       <Router>
         <AccountWrapper>
@@ -134,6 +137,7 @@ const App = () => {
         </AccountWrapper>
       </Router>
     </ApolloProvider>
+    </ThemeProvider>
   );
 };
 

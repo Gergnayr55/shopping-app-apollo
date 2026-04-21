@@ -1,5 +1,7 @@
 import { ReactElement, MouseEvent } from "react";
-import { Typography, Divider, Button } from "@mui/material";
+import Typography from "@mui/material/Typography";
+import Divider from "@mui/material/Divider";
+import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 import { moneyFormatter } from "../../utils";
 

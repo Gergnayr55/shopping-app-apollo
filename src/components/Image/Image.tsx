@@ -1,6 +1,6 @@
 import { ReactElement, CSSProperties, MouseEvent } from "react";
 import { useImageOnLoad } from "usehooks-ts";
-import { Box } from "@mui/material";
+import Box from "@mui/material/Box";
 
 interface ImageProps {
   src: string;

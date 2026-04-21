@@ -1,7 +1,9 @@
 import { ReactElement } from "react";
 import Grid2 from "@mui/material/Grid2";
 import Skeleton from "@mui/material/Skeleton";
-import { Box, Divider, Typography } from "@mui/material";
+import Box from "@mui/material/Box";
+import Divider from "@mui/material/Divider";
+import Typography from "@mui/material/Typography";
 import { handleDateFormat, moneyFormatter } from "../../utils";
 import { useNavigate } from "react-router-dom";
 import Stack from "@mui/material/Stack";

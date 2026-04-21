@@ -1,8 +1,8 @@
 import { ReactElement, MouseEvent } from "react";
-import { ObjectId } from "mongodb";
 import "./MyDrawer.css";
 import Drawer from "@mui/material/Drawer";
-import { Box, Typography } from "@mui/material";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
 import MyCartItem from "../MyCartItem";
 import CartOverview from "../CartOverview";
 import { useReactiveVar } from "@apollo/client";
@@ -10,7 +10,7 @@ import { cartItemsVar } from "../../apollo-client/cache";
 import { calculatedCartTotal, cartTotalItems } from "../../utils";
 
 export interface CartItem {
-  _id: ObjectId;
+  _id: string;
   name: string;
   image: string;
   price: number;
@@ -30,7 +30,7 @@ export type ProductItem = {
   quantity: number;
   rate: number | null;
   __typename?: string;
-  _id: ObjectId;
+  _id: string;
 };
 export type DrawerProps = {
   visible: boolean;

@@ -1,6 +1,6 @@
 import { ReactElement } from "react";
 import CustomButton from "../../components/CustomButton";
-import { Typography } from "@mui/material";
+import Typography from "@mui/material/Typography";
 import Stack from "@mui/material/Stack";
 import Grid2 from "@mui/material/Grid2";
 import { useNavigate } from "react-router-dom";

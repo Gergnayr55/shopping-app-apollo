@@ -7,7 +7,8 @@ import { AccountContext } from "../../State/AccountContext";
 import { Link } from "react-router-dom";
 import CustomInput from "../../components/CustomInput";
 import Button from "@mui/material/Button";
-import { Typography, InputAdornment } from "@mui/material";
+import Typography from "@mui/material/Typography";
+import InputAdornment from "@mui/material/InputAdornment";
 import { USER_LOGIN } from "../../apollo-client/mutations";
 
 function Login(): ReactElement {

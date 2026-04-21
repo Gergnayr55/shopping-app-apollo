@@ -1,23 +1,20 @@
 import { ReactElement, SyntheticEvent } from "react";
 import "./Skin.css";
-import { ObjectId } from "bson";
 import { Link } from "react-router-dom";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import Stack from "@mui/material/Stack";
-import {
-  Box,
-  Button,
-  CardActionArea,
-  CardActions,
-  Rating,
-} from "@mui/material";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import CardActionArea from "@mui/material/CardActionArea";
+import CardActions from "@mui/material/CardActions";
+import Rating from "@mui/material/Rating";
 import { moneyFormatter } from "../../utils";
 import Image from "../Image";
 
 export interface SkinProps {
-  id: ObjectId;
+  id: string;
   name: string;
   description?: string;
   category: string;

@@ -16,14 +16,13 @@ import MenuItem from "@mui/material/MenuItem";
 import MenuList from "@mui/material/MenuList";
 import Stack from "@mui/material/Stack";
 import { useNavigate } from "react-router-dom";
-import { Typography } from "@mui/material";
+import Typography from "@mui/material/Typography";
 import { getUser } from "../../utils";
-import { ObjectId } from "mongodb";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { Menu, Close } from "@mui/icons-material";
 export type UserType = {
-  _id: ObjectId;
+  _id: string;
   __typename: string;
   email: string;
   password: string;

@@ -1,6 +1,7 @@
 import { ReactElement, MouseEvent, useEffect } from "react";
 import Grid2 from "@mui/material/Grid2";
-import { Box, Typography } from "@mui/material";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
 import { CheckCircleOutline } from "@mui/icons-material";
 import { cartTotalItems, calculatedCartTotal } from "../../utils";
 import { useNavigate, useParams } from "react-router-dom";

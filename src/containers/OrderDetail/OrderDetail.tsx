@@ -1,5 +1,6 @@
 import { ReactElement } from "react";
-import { Box, Typography } from "@mui/material";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
 import Stack from "@mui/material/Stack";
 import Grid2 from "@mui/material/Grid2";
 import { useNavigate, useParams } from "react-router-dom";
@@ -9,7 +10,6 @@ import MyCartItem from "../../components/MyCartItem";
 import { useQuery } from "@apollo/client";
 
 import Skeleton from "@mui/material/Skeleton";
-import { ObjectId } from "bson";
 import { CartItem } from "../../components/MyDrawer/MyDrawer";
 import { GET_ORDER_ITEM } from "../../apollo-client/queries";
 
@@ -25,7 +25,7 @@ export default function OrderDetail(): ReactElement {
     variables: { _id: _id },
   });
   const defaultItm = {
-    _id: new ObjectId(),
+    _id: "",
     name: "",
     image: "",
     price: 0,

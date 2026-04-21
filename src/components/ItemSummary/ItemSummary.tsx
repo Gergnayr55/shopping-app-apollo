@@ -1,5 +1,7 @@
 import { ReactElement } from "react";
-import { Box, Typography, Rating } from "@mui/material";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
+import Rating from "@mui/material/Rating";
 import { moneyFormatter } from "../../utils";
 interface ItemSummaryProps {
   name: string;

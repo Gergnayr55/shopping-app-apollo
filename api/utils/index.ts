@@ -22,7 +22,7 @@ export const isMyObjectEmpty = (obj: any) => !obj || !Object.keys(obj).length;
 
 // Sets the user's access and refresh tokens
 export function setTokens(user: Record<string, any>) {
-  const sevenDays = 60 * 60 * 24 * 7;
+  const oneHour = 60 * 60;
   const fifteenMins = 60 * 15;
   const accessUser: AccessUser = {
     id: user._id,
@@ -37,7 +37,7 @@ export function setTokens(user: Record<string, any>) {
   };
 
   const refreshToken = sign({ user: refreshUser }, REFRESH_KEY, {
-    expiresIn: sevenDays,
+    expiresIn: oneHour,
   });
 
   return { accessToken, refreshToken };

@@ -67,6 +67,7 @@ const resolvers = {
         }
       } catch (e) {
         console.error(e);
+        if (e instanceof GraphQLError) throw e;
       }
     },
     getOrder: async (
@@ -86,6 +87,7 @@ const resolvers = {
         }
       } catch (e) {
         console.error("Failed to get order", e);
+        if (e instanceof GraphQLError) throw e;
       }
     },
     getSkins: async (
@@ -103,6 +105,7 @@ const resolvers = {
         }
       } catch (e) {
         console.error(e);
+        if (e instanceof GraphQLError) throw e;
       }
     },
     getOrders: async (
@@ -121,6 +124,7 @@ const resolvers = {
         }
       } catch (e) {
         console.error("Failed to get orders", e);
+        if (e instanceof GraphQLError) throw e;
       }
     },
     getUserCart: async (
@@ -138,6 +142,7 @@ const resolvers = {
         }
       } catch (e) {
         console.error("Failed to get user's cart", e);
+        if (e instanceof GraphQLError) throw e;
       }
     },
   },

@@ -58,10 +58,6 @@ const Dashboard = (): ReactElement => {
       </Grid2>
     );
   }
-  if (error) {
-    window.location.href = "/";
-    return <p> Something went wrong.Please try again!</p>;
-  }
 
   return (
     <Grid2 container direction="column" spacing={2}>
@@ -84,7 +80,7 @@ const Dashboard = (): ReactElement => {
         style={{ margin: "10rem 0 5rem" }}
       >
         {data &&
-          data.getSkins.length > 0 &&
+          data.getSkins?.length > 0 &&
           data.getSkins.map((itm: CartItem, idx: number) => (
             <Grid2
               key={`${itm}-${idx}`}

@@ -48,7 +48,6 @@ const Register = (): ReactElement => {
       sx={{ backgroundColor: "gainsboro", width: "100vw", height: "100vh" }}
     >
       <Stack
-        justifyContent="space-around"
         sx={{
           boxShadow: "0px 0px 17px 1px #1d1f26",
           backgroundColor: "#fff",
@@ -56,8 +55,7 @@ const Register = (): ReactElement => {
           width: "350px",
           margin: " 5% auto",
           borderRadius: "6px",
-          height: "100%",
-          maxHeight: "450px",
+          gap: "16px",
         }}
       >
         <TextField

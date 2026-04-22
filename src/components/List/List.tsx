@@ -131,8 +131,8 @@ export default function List({ arr, onLogout }: ListProps): ReactElement | null 
               style={{
                 transformOrigin:
                   placement === "bottom-start" ? "left top" : "left bottom",
+                marginTop: "20px",
               }}
-              sx={{ marginTop: "20px" }}
             >
               <Paper>
                 <ClickAwayListener onClickAway={handleClose}>

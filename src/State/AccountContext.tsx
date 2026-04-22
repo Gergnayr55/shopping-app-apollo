@@ -16,7 +16,7 @@ type AccountContextType = {
   setVerifyPassword: Dispatch<SetStateAction<string>>;
   focusedInput: string;
   setFocusedInput: Dispatch<SetStateAction<string>>;
-  focusRef: RefObject<HTMLElement>;
+  focusRef: RefObject<HTMLElement | null>;
   handleClick: (event: MouseEvent) => void;
 };
 

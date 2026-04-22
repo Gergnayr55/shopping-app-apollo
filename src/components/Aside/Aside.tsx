@@ -1,8 +1,8 @@
-import { FC } from "react";
+import { FC, ReactElement } from "react";
 import "./Aside.css";
 import Stack from "@mui/material/Stack";
 interface AsideProps {
-  children: JSX.Element;
+  children: ReactElement;
   height: string;
   minWidth?: string;
   className?: string;

@@ -1,5 +1,4 @@
-import { ReactElement, CSSProperties, MouseEvent } from "react";
-import { useImageOnLoad } from "usehooks-ts";
+import { ReactElement, CSSProperties, MouseEvent, useState } from "react";
 import Box from "@mui/material/Box";
 
 interface ImageProps {
@@ -16,7 +15,19 @@ export default function Image({
   onMouseMove,
   onMouseEnter,
 }: ImageProps): ReactElement {
-  const { handleImageOnLoad, css } = useImageOnLoad();
+  const [isLoaded, setIsLoaded] = useState(false);
+  const handleImageOnLoad = () => setIsLoaded(true);
+  const css = {
+    thumbnail: {
+      visibility: isLoaded ? "hidden" : "visible",
+      filter: "blur(8px)",
+      transition: "visibility 0ms ease-out 500ms",
+    },
+    fullSize: {
+      opacity: isLoaded ? 1 : 0,
+      transition: "opacity 500ms ease-in 0ms",
+    },
+  };
 
   return (
     <Box

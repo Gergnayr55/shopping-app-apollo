@@ -31,21 +31,6 @@ import {
 
 const resolvers = {
   Query: {
-    loggedInUser: async (
-      _: any,
-      __: any,
-      { req }: { req: Request }
-    ): Promise<NewUser | undefined> => {
-      try {
-        const user = await userRepo.findOne({ id: req.user._id });
-        if (isMyObjectEmpty(req.user)) {
-        } else if (user) {
-          return user;
-        }
-      } catch (e) {
-        console.error(e);
-      }
-    },
     getSkin: async (
       _: any,
       args: { _id: string },

@@ -28,17 +28,8 @@ export const USER_LOGIN = gql`
     login(email: $email, password: $password) {
       _id
       email
-      password
       firstName
       lastName
-    }
-  }
-`;
-export const LOGGED_IN = gql`
-  query LoggedInUser {
-    loggedInUser {
-      _id
-      email
     }
   }
 `;
@@ -56,7 +47,6 @@ export const REGISTRATION = gql`
       lastName: $lastName
     ) {
       email
-      password
       firstName
       lastName
     }

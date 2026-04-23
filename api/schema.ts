@@ -21,7 +21,6 @@ export const typeDefs = `#graphql
   type User {
     _id: ID!
     email: String
-    password: String
     firstName: String
     lastName: String
   }
@@ -84,7 +83,6 @@ export const typeDefs = `#graphql
   }
 
   type Query {
-    loggedInUser: User
     getSkin(_id: ID!): Skin
     getOrder(_id: ID!): Orders
     getSkins: [Skin]

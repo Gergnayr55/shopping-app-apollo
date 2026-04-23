@@ -25,7 +25,6 @@ export type UserType = {
   _id: string;
   __typename: string;
   email: string;
-  password: string;
   firstName: string;
   lastName: string;
 };

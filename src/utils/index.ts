@@ -3,7 +3,6 @@ import { CartItem } from "../components/MyDrawer/MyDrawer";
 export type LoginUser = {
   _id: string;
   email: string;
-  password: string;
   firstName: string;
   lastName: string;
 };
@@ -14,14 +13,6 @@ export function saveUser(user: LoginUser): void {
   localStorage.setItem(USER_KEY, JSON.stringify(user));
 }
 
-export function saveCart(userId: string, cart: CartItem[]): void {
-  localStorage.setItem(userId, JSON.stringify(cart));
-}
-
-export function clearCart(userId: string): void {
-  localStorage.removeItem(userId);
-}
-
 export function getUser(): LoginUser | null {
   const item = localStorage.getItem(USER_KEY);
   return item ? JSON.parse(item) : null;
@@ -29,10 +20,6 @@ export function getUser(): LoginUser | null {
 
 export function deleteUser(): void {
   localStorage.removeItem(USER_KEY);
-}
-
-export function validToken() {
-  getUser();
 }
 
 export const moneyFormatter = new Intl.NumberFormat("en-US", {

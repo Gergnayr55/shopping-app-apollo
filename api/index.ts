@@ -28,6 +28,14 @@ import {
   isMyObjectEmpty,
 } from "./utils";
 
+function requireAuth(req: Request, res: Response): void {
+  if (isMyObjectEmpty(req.user)) {
+    res.clearCookie("access");
+    res.clearCookie("refresh");
+    throw new GraphQLError('Not authenticated', { extensions: { code: 'UNAUTHENTICATED' } });
+  }
+}
+
 const resolvers = {
   Query: {
     getSkin: async (
@@ -36,18 +44,12 @@ const resolvers = {
       { req, res }: { req: Request; res: Response }
     ): Promise<Skin | undefined | null> => {
       try {
-        if (isMyObjectEmpty(req.user)) {
-          res.clearCookie("access");
-          res.clearCookie("refresh");
-          throw new GraphQLError('Not authenticated', { extensions: { code: 'UNAUTHENTICATED' } });
+        requireAuth(req, res);
+        const skinId = new ObjectId(args._id);
+        if (skinId) {
+          return await skinRepo.findOne({ _id: skinId });
         } else {
-          const skinId = new ObjectId(args._id);
-
-          if (skinId) {
-            return await skinRepo.findOne({ _id: skinId });
-          } else {
-            throw new Error("Missing required params");
-          }
+          throw new Error("Missing required params");
         }
       } catch (e) {
         console.error(e);
@@ -60,13 +62,9 @@ const resolvers = {
       { req, res }: { req: Request; res: Response }
     ): Promise<Order | null | undefined> => {
       try {
-        if (isMyObjectEmpty(req.user)) {
-          res.clearCookie("access");
-          res.clearCookie("refresh");
-          throw new GraphQLError('Not authenticated', { extensions: { code: 'UNAUTHENTICATED' } });
-        } else if (args._id) {
+        requireAuth(req, res);
+        if (args._id) {
           const myId = new ObjectId(args._id);
-
           return await orderRepo.findOne({ _id: myId });
         }
       } catch (e) {
@@ -80,13 +78,8 @@ const resolvers = {
       { req, res }: { req: Request; res: Response }
     ): Promise<Skin[] | undefined> => {
       try {
-        if (isMyObjectEmpty(req.user)) {
-          res.clearCookie("access");
-          res.clearCookie("refresh");
-          throw new GraphQLError('Not authenticated', { extensions: { code: 'UNAUTHENTICATED' } });
-        } else {
-          return await skinRepo.find().toArray();
-        }
+        requireAuth(req, res);
+        return await skinRepo.find().toArray();
       } catch (e) {
         console.error(e);
         if (e instanceof GraphQLError) throw e;
@@ -98,14 +91,9 @@ const resolvers = {
       { req, res }: { req: Request; res: Response }
     ): Promise<Order[] | undefined> => {
       try {
-        if (isMyObjectEmpty(req.user)) {
-          res.clearCookie("access");
-          res.clearCookie("refresh");
-          throw new GraphQLError('Not authenticated', { extensions: { code: 'UNAUTHENTICATED' } });
-        } else if (req.user) {
-          const myId = req.user.id.toString();
-          return await orderRepo.find({ userId: myId }).toArray();
-        }
+        requireAuth(req, res);
+        const myId = req.user.id.toString();
+        return await orderRepo.find({ userId: myId }).toArray();
       } catch (e) {
         console.error("Failed to get orders", e);
         if (e instanceof GraphQLError) throw e;
@@ -214,9 +202,13 @@ const resolvers = {
         userId,
         total,
       }: { cartItems: CartItemInput[]; userId: string; total: number },
-      { res }: { res: Response }
+      { req, res }: { req: Request; res: Response }
     ): Promise<{ id: string | null } | undefined> => {
       try {
+        requireAuth(req, res);
+        if (req.user.id.toString() !== userId) {
+          throw new GraphQLError('Forbidden', { extensions: { code: 'FORBIDDEN' } });
+        }
         const myOrder = await orderRepo.insertOne({
           items: cartItems,
           userId: userId,

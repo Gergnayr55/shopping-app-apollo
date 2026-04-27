@@ -4,13 +4,6 @@ export const TOGGLE_CART = gql`
     addOrRemoveFromCart(cartItem: $cartItem, type: $type) @client
   }
 `;
-export const UPDATE_CART = gql`
-  mutation HandleCart($cartItems: [CartItem], $userId: ID) {
-    handleCart(cartItems: $cartItems, userId: $userId) {
-      id
-    }
-  }
-`;
 export const MY_ORDER = gql`
   mutation MyOrder($cartItems: [CartItem], $userId: ID, $total: Float) {
     handleOrder(cartItems: $cartItems, userId: $userId, total: $total) {

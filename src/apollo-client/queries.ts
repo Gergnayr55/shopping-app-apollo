@@ -14,25 +14,6 @@ export const GET_CART_ITEMS = gql`
     }
   }
 `;
-export const SAVED_CART_ITEMS = gql`
-  query GetUserCart {
-    getUserCart {
-      cart {
-        _id
-        name
-        price
-        description
-        category
-        image
-        rate
-        count
-        quantity
-      }
-      userId
-      updatedAt
-    }
-  }
-`;
 export const GET_ORDER_ITEM = gql`
   query GetOrder($_id: ID!) {
     getOrder(_id: $_id) {

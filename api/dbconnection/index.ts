@@ -1,11 +1,11 @@
 import { MongoClient, Db, Collection } from "mongodb";
 import config from "../config/config";
-import { SavedCart, Order, Skin, NewUser, InsertOrder, CartItem, User } from "../utils/types";
+import { Order, Skin, NewUser, InsertOrder, User } from "../utils/types";
 const MONGO_URI = config.MONGO_URI;
 
 export const client: MongoClient = new MongoClient(MONGO_URI);
 
-export async function seedDatabase(db_name: string, data: Array<Skin | User | Order | CartItem>) {
+export async function seedDatabase(db_name: string, data: Array<Skin | User | Order>) {
   try {
     const newDB: Db = client.db(db_name);
 
@@ -35,4 +35,3 @@ const db: Db = client.db("test");
 export const userRepo: Collection<NewUser> = db.collection("myUsers");
 export const skinRepo: Collection<Skin> = db.collection("skins");
 export const orderRepo: Collection<InsertOrder> = db.collection("orders");
-export const cartRepo: Collection<SavedCart> = db.collection("userCart");

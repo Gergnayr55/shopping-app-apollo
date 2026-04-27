@@ -15,7 +15,6 @@ export const typeDefs = `#graphql
       lastName: String
     ): User
     handleOrder(cartItems: [CartItem], userId: ID, total: Float): OrderRes
-    handleCart(cartItems: [CartItem], userId: ID): CartRes
   }
 
   type User {
@@ -73,20 +72,10 @@ export const typeDefs = `#graphql
     total: Float
   }
 
-  type CartRes {
-    id: ID
-  }
-  type UserCart {
-    cart: [OrderItem]
-    userId: String
-    updatedAt: String
-  }
-
   type Query {
     getSkin(_id: ID!): Skin
     getOrder(_id: ID!): Orders
     getSkins: [Skin]
     getOrders: [Orders]
-    getUserCart: [UserCart]
   }
 `;

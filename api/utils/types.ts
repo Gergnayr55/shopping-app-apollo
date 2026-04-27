@@ -27,20 +27,6 @@ export interface InsertOrder {
 export interface Order extends InsertOrder {
   _id: ObjectId;
 }
-export interface SavedCart {
-  userId: string;
-  items: Array<CartItem>;
-  createdAt?: Date;
-  updatedAt?: Date;
-}
-
-export interface CartItem {
-  _id: ObjectId;
-  userId: string;
-  skinId: string;
-  quantity: number;
-}
-
 export interface CartItemInput {
   _id: ObjectId;
   name: string;
@@ -50,12 +36,6 @@ export interface CartItemInput {
   rate: number | null;
   count: number | null;
   quantity: number;
-}
-
-export interface InsertDocumentRes {
-  acknowledged: boolean;
-  upsertedId?: ObjectId;
-  insertedId?: ObjectId;
 }
 
 export interface UserRes {

@@ -9,13 +9,10 @@ import {
   User,
   Skin,
   Order,
-  CartItem,
-  SavedCart,
-  InsertDocumentRes,
   CartItemInput,
 } from "./utils/types";
 import { validateTokensMiddleware } from "./middleware";
-import { userRepo, skinRepo, orderRepo, cartRepo, seedDatabase } from "./dbconnection";
+import { userRepo, skinRepo, orderRepo, seedDatabase } from "./dbconnection";
 import config from "./config/config";
 import { ObjectId } from "mongodb";
 import { GraphQLError } from "graphql";
@@ -96,24 +93,6 @@ const resolvers = {
         return await orderRepo.find({ userId: myId }).toArray();
       } catch (e) {
         console.error("Failed to get orders", e);
-        if (e instanceof GraphQLError) throw e;
-      }
-    },
-    getUserCart: async (
-      _: any,
-      { req, res }: { req: Request; res: Response }
-    ): Promise<any[] | undefined> => {
-      try {
-        if (isMyObjectEmpty(req.user)) {
-          res.clearCookie("access");
-          res.clearCookie("refresh");
-          throw new GraphQLError('Not authenticated', { extensions: { code: 'UNAUTHENTICATED' } });
-        } else if (req.user) {
-          const userId = req.user.id.toString();
-          return await cartRepo.find({ userId: userId }).toArray();
-        }
-      } catch (e) {
-        console.error("Failed to get user's cart", e);
         if (e instanceof GraphQLError) throw e;
       }
     },
@@ -223,47 +202,6 @@ const resolvers = {
         }
       } catch (e) {
         console.error("Failed on submit order", e);
-      }
-    },
-    handleCart: async (
-      _: any,
-      { cartItems, userId }: { cartItems: Array<CartItem>; userId: string },
-      { res }: { res: Response }
-    ): Promise<{ id: ObjectId | null } | undefined> => {
-      try {
-        const existingCart = await cartRepo.findOne({
-          userId: userId,
-        });
-        let myShoppingCartRes: any | undefined = undefined;
-        if (existingCart) {
-          myShoppingCartRes = await cartRepo.updateOne(
-            { userId: existingCart.userId },
-            {
-              $set: {
-                cart: cartItems,
-                userId: userId,
-                updatedAt: new Date(),
-              },
-            }
-          );
-        } else {
-          myShoppingCartRes = await cartRepo.insertOne({
-            items: cartItems,
-            userId: userId,
-            updatedAt: new Date(),
-          });
-        }
-
-        if (myShoppingCartRes && myShoppingCartRes.acknowledged) {
-          const returnId = myShoppingCartRes?.upsertedId
-            ? myShoppingCartRes?.upsertedId
-            : myShoppingCartRes.insertedId;
-          if (returnId) return { id: returnId };
-        } else {
-          return { id: null };
-        }
-      } catch (e) {
-        console.error("Failed on add item to cart", e);
       }
     },
   },

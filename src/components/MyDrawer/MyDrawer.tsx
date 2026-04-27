@@ -98,6 +98,7 @@ function MyDrawer({
               userCartItems.length > 0 &&
               userCartItems.map((itm: CartItem, idx: number) => (
                 <MyCartItem
+                  key={`${itm._id}-${idx}`}
                   item={itm}
                   direction="column"
                   justifyContent="space-between"

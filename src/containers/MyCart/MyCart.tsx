@@ -48,7 +48,7 @@ export default function MyCart(): ReactElement {
       >
         {userCartItems.map((itm: CartItem, idx: number) => (
           <MyCartItem
-              key={`${itm}-${idx}`}
+              key={`${itm._id}-${idx}`}
               item={itm}
               direction="row"
               justifyContent="space-between"

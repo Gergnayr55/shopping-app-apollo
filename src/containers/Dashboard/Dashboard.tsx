@@ -50,8 +50,8 @@ const Dashboard = (): ReactElement => {
             size={{ xs: 12, sm: 12, md: 12 }}
             sx={{ padding: 12, width: "calc(100vw - 25%)" }}
           >
-            {[0, 0, 0, 0, 0].map((itm, idx) => (
-              <Skeleton key={`${itm}-${idx}`} animation="pulse" height={"450px"} />
+            {Array.from({ length: 5 }, (_, idx) => (
+              <Skeleton key={`skeleton-${idx}`} animation="pulse" height={"450px"} />
             ))}
           </Grid2>
         </Grid2>
@@ -83,7 +83,7 @@ const Dashboard = (): ReactElement => {
           data.getSkins?.length > 0 &&
           data.getSkins.map((itm: CartItem, idx: number) => (
             <Grid2
-              key={`${itm}-${idx}`}
+              key={`${itm._id}-${idx}`}
               direction="column"
               size={{ xs: 12, sm: 12, md: 12 }}
               sx={{ padding: 12, width: "calc(100vw - 25%)" }}

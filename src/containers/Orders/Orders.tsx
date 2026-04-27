@@ -1,4 +1,4 @@
-import { ReactElement } from "react";
+import { ReactElement, Fragment } from "react";
 import Grid2 from "@mui/material/Grid2";
 import Skeleton from "@mui/material/Skeleton";
 import Box from "@mui/material/Box";
@@ -135,8 +135,8 @@ export default function Orders(): ReactElement {
             </Typography>
           ) : (
             data.getOrders.map((itm: OrderItem, idx: number) => (
-              <>
-                <Divider key={`${itm}-${idx}`} variant="middle" sx={{ margin: "0" }} />
+              <Fragment key={`${itm._id}-${idx}`}>
+                <Divider variant="middle" sx={{ margin: "0" }} />
                 <Stack
                   direction="row"
                   alignItems="center"
@@ -196,7 +196,7 @@ export default function Orders(): ReactElement {
                     {itm.status}
                   </Typography>
                 </Stack>
-              </>
+              </Fragment>
             ))
           )}
         </Box>

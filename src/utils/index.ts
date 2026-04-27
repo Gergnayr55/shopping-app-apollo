@@ -46,10 +46,6 @@ export const calculatedCartTotal = (items: Array<CartItem>): number => {
   }
 };
 
-export const handleTotalItems = (arr: Array<CartItem>): number =>
-  arr.reduce((a, b) => {
-    return a + b.quantity;
-  }, 0);
 
 export const handleDateFormat = (date: number): string => {
   if (date) {

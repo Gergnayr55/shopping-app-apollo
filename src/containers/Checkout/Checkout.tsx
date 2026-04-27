@@ -8,7 +8,7 @@ import Divider from "@mui/material/Divider";
 import Stack from "@mui/material/Stack";
 import Grid2 from "@mui/material/Grid2";
 import { useNavigate } from "react-router-dom";
-import { calculatedCartTotal, handleTotalItems } from "../../utils";
+import { calculatedCartTotal, cartTotalItems } from "../../utils";
 import { useRequireAuth } from "../../hooks/useRequireAuth";
 import { CartItem } from "../../components/MyDrawer/MyDrawer";
 import BackButton from "../../components/BackButton";
@@ -346,7 +346,7 @@ export default function Checkout(): ReactElement | null {
           >
             <CartOverview
               totalCart={totalOrder}
-              totalItems={handleTotalItems(userCartItems)}
+              totalItems={cartTotalItems(userCartItems)}
               isCheckout
               handleCheckout={(e: MouseEvent<HTMLButtonElement>) =>
                 handleUsrOrder(e)

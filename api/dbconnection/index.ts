@@ -5,29 +5,8 @@ const MONGO_URI = config.MONGO_URI;
 
 export const client: MongoClient = new MongoClient(MONGO_URI);
 
-export async function connectToDatabase(db_name: string ) {
-  const client: MongoClient = new MongoClient(MONGO_URI);
-  try {
-    await client.connect();
-
-    const db: Db = client.db(db_name);
-
-    collections.userRepo = db.collection("myUsers");
-    collections.skinRepo = db.collection("skins");
-    collections.orderRepo = db.collection("orders");
-    collections.cartRepo = db.collection("userCart");
-
-    console.log(`Successfully connected to database: ${db.databaseName}`);
-  } catch (e) {
-    console.log("failed to connect to Mongo", e);
-  }
-}
-
 export async function seedDatabase(db_name: string, data: Array<Skin | User | Order | CartItem>) {
-  const client: MongoClient = new MongoClient(MONGO_URI);
   try {
-    await client.connect();
-
     const newDB: Db = client.db(db_name);
 
     newDB.createCollection("skins");
@@ -46,30 +25,10 @@ export async function seedDatabase(db_name: string, data: Array<Skin | User | Or
     }
 
     console.log(`Successfully seeded database: ${newDB.databaseName}`);
-
   } catch (e) {
-    console.log("failed to connect to Mongo", e);
+    console.log("failed to seed Mongo", e);
   }
 }
-  connectToDatabase('test')
-    .catch(console.error)
-    .finally(() => {
-      console.log("MongoDB client connected");
-    });
-
-export const collections:
-  | {
-      userRepo: Collection;
-      skinRepo: Collection;
-      orderRepo: Collection;
-      cartRepo: Collection;
-    }
-  | { userRepo: ""; skinRepo: ""; orderRepo: ""; cartRepo: "" } = {
-  userRepo: "",
-  skinRepo: "",
-  orderRepo: "",
-  cartRepo: "",
-};
 
 const db: Db = client.db("test");
 

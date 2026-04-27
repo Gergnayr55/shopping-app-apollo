@@ -12,13 +12,12 @@ import {
   CartItem,
   SavedCart,
   InsertDocumentRes,
-  NewUser,
   CartItemInput,
 } from "./utils/types";
 import { validateTokensMiddleware } from "./middleware";
 import { userRepo, skinRepo, orderRepo, cartRepo, seedDatabase } from "./dbconnection";
 import config from "./config/config";
-import { InsertOneResult, ObjectId } from "mongodb";
+import { ObjectId } from "mongodb";
 import { GraphQLError } from "graphql";
 
 import {
@@ -189,25 +188,21 @@ const resolvers = {
         lastName: string;
       },
       { res }: { res: Response }
-    ): Promise<InsertOneResult<NewUser> | undefined> => {
+    ): Promise<User | null | undefined> => {
       try {
-        const userExists = await userRepo.findOne({
-          email: email,
-        });
-        // let user;
+        const userExists = await userRepo.findOne({ email });
+        if (userExists) return null;
         const hashedPw = await hashPassword(password);
-        if (!userExists) {
-          return await userRepo.insertOne({
-            email,
-            password: !!hashedPw ? hashedPw : '',
-            firstName,
-            lastName,
-            createdAt: new Date(),
-            updatedAt: new Date(),
-          });
-        } else {
-          return undefined;
-        }
+        if (!hashedPw) return null;
+        const result = await userRepo.insertOne({
+          email,
+          password: hashedPw,
+          firstName,
+          lastName,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        });
+        return await userRepo.findOne({ _id: result.insertedId }) ?? null;
       } catch (e) {
         console.error("Failed on registration", e);
       }

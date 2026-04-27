@@ -73,18 +73,6 @@ export function tokenCookies({ accessToken, refreshToken }: { accessToken: strin
   };
 }
 
-// Verify user jwt is still valid
-export const getUser = (token: string) => {
-  try {
-    if (token) {
-      return jwt.verify(token, SECRET_KEY);
-    }
-    return null;
-  } catch (error) {
-    return null;
-  }
-};
-
 // Handle hashing password for user in db
 export async function hashPassword(pw: string | Buffer) {
   try {

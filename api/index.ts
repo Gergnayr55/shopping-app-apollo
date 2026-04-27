@@ -138,9 +138,7 @@ const resolvers = {
 
             const cookies = tokenCookies(tokens);
 
-            // @ts-ignore
             res.cookie(...cookies.access);
-            // @ts-ignore
             res.cookie(...cookies.refresh);
             return user;
           }

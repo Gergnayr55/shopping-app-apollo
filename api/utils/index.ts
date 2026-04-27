@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken";
-
+import { CookieOptions } from "express";
 import config from "../config/config";
 import bcrypt from "bcrypt";
 
@@ -62,17 +62,14 @@ export function validateRefreshToken(token: string) {
 }
 
 // Returns cookies for jwt access and refresh tokens
-export function tokenCookies({ accessToken, refreshToken }: any) {
-  const cookieOptions = {
+export function tokenCookies({ accessToken, refreshToken }: { accessToken: string; refreshToken: string }) {
+  const cookieOptions: CookieOptions = {
     httpOnly: true,
-    // secure: true, //for HTTPS only
-    //domain: "http://localhost:3000",
-    //SameSite: "None",
   };
 
   return {
-    access: ["access", accessToken, cookieOptions],
-    refresh: ["refresh", refreshToken, cookieOptions],
+    access: ["access", accessToken, cookieOptions] as [string, string, CookieOptions],
+    refresh: ["refresh", refreshToken, cookieOptions] as [string, string, CookieOptions],
   };
 }
 

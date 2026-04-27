@@ -41,9 +41,7 @@ export async function validateTokensMiddleware(
     req.user = decodedRefreshToken.user;
     // update the cookies with new tokens
     const cookies = tokenCookies(userTokens);
-    // @ts-ignore
     res.cookie(...cookies.access);
-    // @ts-ignore
     res.cookie(...cookies.refresh);
     return next();
   }

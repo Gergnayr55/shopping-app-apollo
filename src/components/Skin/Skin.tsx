@@ -7,7 +7,6 @@ import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import CardActionArea from "@mui/material/CardActionArea";
-import CardActions from "@mui/material/CardActions";
 import Rating from "@mui/material/Rating";
 import { moneyFormatter } from "../../utils";
 import Image from "../Image";
@@ -198,11 +197,6 @@ function Skin({
             </Typography>
           </Stack>
         </CardContent>
-        <CardActions>
-          {/* <Button size="small" color="primary" onClick={addToCart}>
-            Add to Cart
-          </Button> */}
-        </CardActions>
       </Card>
     </Box>
   );

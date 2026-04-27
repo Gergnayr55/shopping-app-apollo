@@ -213,11 +213,6 @@ const corsConfig: CorsOptions = {
 
 async function startApolloServer() {
   try {
-    // interface MyContext {
-    //   token?: string;
-    // }
-    
-    // Apollo 4
     const server = new ApolloServer<any>({
       typeDefs,
       resolvers
@@ -246,7 +241,6 @@ async function startApolloServer() {
     const app = express();
     app.use(cookieParser());
     app.use(validateTokensMiddleware);
-     // Apollo 4
     app.use('/graphql',
 
       cors<cors.CorsRequest>(corsConfig),
@@ -255,7 +249,6 @@ async function startApolloServer() {
     
       expressMiddleware(server, {
     
-        // context: async ({ req }) => ({ token: req.headers.token }),
         context: async ({ req, res }: { req: Request; res: Response }) => ({
           req,
           res,

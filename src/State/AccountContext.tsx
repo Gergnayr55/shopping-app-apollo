@@ -1,5 +1,4 @@
-import { createContext, useRef, useState, Dispatch, SetStateAction, RefObject, MouseEvent, ReactNode } from "react";
-import useContainsNode from "../custom-hooks/useContainsNode";
+import { createContext, useState, Dispatch, SetStateAction, ReactNode } from "react";
 
 type NameType = { firstName: string; lastName: string };
 
@@ -16,8 +15,6 @@ type AccountContextType = {
   setVerifyPassword: Dispatch<SetStateAction<string>>;
   focusedInput: string;
   setFocusedInput: Dispatch<SetStateAction<string>>;
-  focusRef: RefObject<HTMLElement | null>;
-  handleClick: (event: MouseEvent) => void;
 };
 
 const AccountContext = createContext<AccountContextType>({
@@ -33,8 +30,6 @@ const AccountContext = createContext<AccountContextType>({
   setVerifyPassword: () => {},
   focusedInput: "",
   setFocusedInput: () => {},
-  focusRef: { current: null },
-  handleClick: () => {},
 });
 const { Provider, Consumer } = AccountContext;
 
@@ -44,23 +39,7 @@ const AccountProvider = ({ children }: { children: ReactNode }) => {
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [name, setName] = useState<NameType>({ firstName: "", lastName: "" });
   const [verifyPassword, setVerifyPassword] = useState("");
-  const focusRef = useRef<HTMLElement>(null);
   const [focusedInput, setFocusedInput] = useState("");
-
-  useContainsNode(focusRef, () => {
-    focusRef.current?.blur();
-  });
-
-  const handleClick = (event: MouseEvent) => {
-    if (
-      focusRef &&
-      focusRef.current &&
-      event.target instanceof Node &&
-      focusRef.current.contains(event.target)
-    ) {
-      focusRef.current.focus();
-    }
-  };
 
   return (
     <Provider
@@ -77,8 +56,6 @@ const AccountProvider = ({ children }: { children: ReactNode }) => {
         setVerifyPassword,
         focusedInput,
         setFocusedInput,
-        focusRef,
-        handleClick,
       }}
     >
       {children}

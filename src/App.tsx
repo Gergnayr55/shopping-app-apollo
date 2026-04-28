@@ -2,8 +2,8 @@ import { useEffect, useState, lazy, Suspense } from "react";
 import { ThemeProvider } from "@mui/material/styles";
 import theme from "./theme";
 import AccountWrapper from "./State/index";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { getUser, deleteUser } from "./utils";
+import { createBrowserRouter, RouterProvider, ScrollRestoration, Outlet } from "react-router-dom";
+import { deleteUser } from "./utils";
 import PrivateRoute from "./components/PrivateRoute";
 import LoadingFallback from "./components/LoadingFallback";
 import ErrorBoundary from "./components/ErrorBoundary";
@@ -40,9 +40,37 @@ const httpLink = new HttpLink({
   credentials: 'include',
 });
 
+const RootLayout = () => (
+  <AccountWrapper>
+    <DashboardProvider>
+      <ErrorBoundary>
+        <Suspense fallback={<LoadingFallback />}>
+          <ScrollRestoration />
+          <Outlet />
+        </Suspense>
+      </ErrorBoundary>
+    </DashboardProvider>
+  </AccountWrapper>
+);
+
+const router = createBrowserRouter([
+  {
+    element: <RootLayout />,
+    children: [
+      { path: "/", element: <Login /> },
+      { path: "/register", element: <Register /> },
+      { path: "/home", element: <PrivateRoute><Dashboard /></PrivateRoute> },
+      { path: "/orders/:_id", element: <PrivateRoute><OrderDetail /></PrivateRoute> },
+      { path: "/orders", element: <PrivateRoute><Orders /></PrivateRoute> },
+      { path: "/skin/:_id", element: <PrivateRoute><ItemDetail /></PrivateRoute> },
+      { path: "/my-cart", element: <PrivateRoute><MyCart /></PrivateRoute> },
+      { path: "/checkout", element: <PrivateRoute><Checkout /></PrivateRoute> },
+      { path: "/order-success/:id", element: <PrivateRoute><OrderSuccess /></PrivateRoute> },
+    ],
+  },
+]);
+
 const App = () => {
-  const auth = getUser();
-  const isAuthed = auth === null ? false : true;
   const [client, setClient] = useState<ApolloClient<NormalizedCacheObject> | null>(null);
 
   useEffect(() => {
@@ -65,78 +93,9 @@ const App = () => {
 
   return (
     <ThemeProvider theme={theme}>
-    <ApolloProvider client={client}>
-      <Router>
-        <AccountWrapper>
-          <DashboardProvider>
-            <ErrorBoundary>
-            <Suspense fallback={<LoadingFallback />}>
-              <Routes>
-                <Route path="/" element={<Login />} />
-                <Route path="/register" element={<Register />} />
-                <Route
-                  path="/home"
-                  element={
-                    <PrivateRoute authed={isAuthed}>
-                      <Dashboard />
-                    </PrivateRoute>
-                  }
-                />
-                <Route
-                  path="/orders/:_id"
-                  element={
-                    <PrivateRoute authed={isAuthed}>
-                      <OrderDetail />
-                    </PrivateRoute>
-                  }
-                />
-                <Route
-                  path="/orders"
-                  element={
-                    <PrivateRoute authed={isAuthed}>
-                      <Orders />
-                    </PrivateRoute>
-                  }
-                />
-                <Route
-                  path="/skin/:_id"
-                  element={
-                    <PrivateRoute authed={isAuthed}>
-                      <ItemDetail />
-                    </PrivateRoute>
-                  }
-                />
-                <Route
-                  path="/my-cart"
-                  element={
-                    <PrivateRoute authed={isAuthed}>
-                      <MyCart />
-                    </PrivateRoute>
-                  }
-                />
-                <Route
-                  path="/checkout"
-                  element={
-                    <PrivateRoute authed={isAuthed}>
-                      <Checkout />
-                    </PrivateRoute>
-                  }
-                />
-                <Route
-                  path="/order-success/:id"
-                  element={
-                    <PrivateRoute authed={isAuthed}>
-                      <OrderSuccess />
-                    </PrivateRoute>
-                  }
-                />
-              </Routes>
-            </Suspense>
-            </ErrorBoundary>
-          </DashboardProvider>
-        </AccountWrapper>
-      </Router>
-    </ApolloProvider>
+      <ApolloProvider client={client}>
+        <RouterProvider router={router} />
+      </ApolloProvider>
     </ThemeProvider>
   );
 };
